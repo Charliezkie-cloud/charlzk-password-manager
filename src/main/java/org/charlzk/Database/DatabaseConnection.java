@@ -1,0 +1,19 @@
+package org.charlzk.Database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DatabaseConnection {
+  private static final String DATABASE_URL = "jdbc:sqlite:password_manager.db";
+  private static Connection connection;
+
+  public static Connection getConnection() throws SQLException {
+    if (connection == null || connection.isClosed()) {
+      connection = DriverManager.getConnection(DATABASE_URL);
+      connection.createStatement().execute("PRAGMA foreign_keys = ON;");
+    }
+
+    return connection;
+  }
+}
