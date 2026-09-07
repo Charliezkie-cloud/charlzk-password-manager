@@ -1,0 +1,113 @@
+package org.charlzk.Events.RegistrationEvents;
+
+import org.charlzk.Components.CustomJOptionPane;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RegisterButtonOnAction implements ActionListener {
+  // Fields
+  private final JTextField usernameField;
+  private final JTextField emailField;
+  private final JPasswordField passwordField;
+  private final JPasswordField passwordConfirmationField;
+
+  // Checkbox
+  private final JCheckBox agreementCheckbox;
+
+  public RegisterButtonOnAction(
+          // Fields
+          JTextField usernameField,
+          JTextField emailField,
+          JPasswordField passwordField,
+          JPasswordField passwordConfirmationField,
+
+          // Checkbox
+          JCheckBox agreementCheckbox
+  ) {
+    this.usernameField = usernameField;
+    this.emailField = emailField;
+    this.passwordField = passwordField;
+    this.passwordConfirmationField = passwordConfirmationField;
+    this.agreementCheckbox = agreementCheckbox;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (!validateForm()) return;
+
+
+  }
+
+  private boolean validateForm() {
+    String username = usernameField.getText().trim();
+    String email = emailField.getText().trim();
+    char[] password = passwordField.getPassword();
+    char[] passwordConfirmation = passwordConfirmationField.getPassword();
+
+    try {
+      if (username.isEmpty()) {
+        CustomJOptionPane.showErrorMessageDialog("Username is required.", "Validation Error");
+        return false;
+      }
+
+      if (username.length() < 3 || username.length() > 20) {
+        CustomJOptionPane.showErrorMessageDialog("Username must be between 3 and 20 characters.", "Validation Error");
+        return false;
+      }
+
+      if (!username.matches("^[a-zA-Z0-9_]+$")) {
+        CustomJOptionPane.showErrorMessageDialog("Username can only contain letters, numbers, and underscores.", "Validation Error");
+        return false;
+      }
+
+      if (email.isEmpty()) {
+        CustomJOptionPane.showErrorMessageDialog("Email is required.", "Validation Error");
+        return false;
+      }
+
+      if (!email.matches("^[\\w.+-]+@[\\w-]+\\.[a-zA-Z]{2,}$")) {
+        CustomJOptionPane.showErrorMessageDialog("Please enter a valid email address.", "Validation Error");
+        return false;
+      }
+
+      if (password.length == 0) {
+        CustomJOptionPane.showErrorMessageDialog("Password is required.", "Validation Error");
+        return false;
+      }
+
+      if (password.length < 8) {
+        CustomJOptionPane.showErrorMessageDialog("Password must be at least 8 characters long.", "Validation Error");
+        return false;
+      }
+
+      boolean hasUpper = false, hasLower = false, hasDigit = false;
+      for (char c : password) {
+        if (Character.isUpperCase(c)) hasUpper = true;
+        else if (Character.isLowerCase(c)) hasLower = true;
+        else if (Character.isDigit(c)) hasDigit = true;
+      }
+
+      if (!hasUpper || !hasLower || !hasDigit) {
+        CustomJOptionPane.showErrorMessageDialog("Password must contain at least one uppercase letter, one lowercase letter, and one number.", "Validation Error");
+        return false;
+      }
+
+      if (!java.util.Arrays.equals(password, passwordConfirmation)) {
+        CustomJOptionPane.showErrorMessageDialog("Passwords do not match.", "Validation Error");
+        return false;
+      }
+
+      if (!agreementCheckbox.isSelected()) {
+        CustomJOptionPane.showErrorMessageDialog("You must agree to the terms before registering.", "Validation Error");
+        return false;
+      }
+
+      return true;
+    } finally {
+      java.util.Arrays.fill(password, '\0');
+      java.util.Arrays.fill(passwordConfirmation, '\0');
+    }
+  }
+}

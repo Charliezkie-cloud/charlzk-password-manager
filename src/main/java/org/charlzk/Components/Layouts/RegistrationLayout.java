@@ -5,13 +5,13 @@ import java.awt.*;
 
 public class RegistrationLayout extends JPanel {
   // Field column length
-  private static final int fieldColumnLength = 55;
+  private static final int fieldColumnLength = 30;
 
   // Fields
   public static final JTextField usernameField = new JTextField(fieldColumnLength);
   public static final JTextField emailField = new JTextField(fieldColumnLength);
-  public static final JTextField passwordField = new JTextField(fieldColumnLength);
-  public static final JTextField passwordConfirmationField = new JTextField(fieldColumnLength);
+  public static final JPasswordField passwordField = new JPasswordField(fieldColumnLength);
+  public static final JPasswordField passwordConfirmationField = new JPasswordField(fieldColumnLength);
 
   // Legal components
   public static final JButton termsOfUseButton = new JButton("By creating an account, you agree to our Terms of Use and Privacy Policy.");
@@ -25,9 +25,7 @@ public class RegistrationLayout extends JPanel {
     setLayout(new BorderLayout());
     setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-    // ========== CENTER PANEL ==========
-    JPanel centerPanel = new JPanel();
-
+    // ========== FORM PANEL ==========
     JPanel formPanel = new JPanel(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();
 

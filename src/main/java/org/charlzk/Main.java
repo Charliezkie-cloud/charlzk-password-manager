@@ -1,8 +1,9 @@
 package org.charlzk;
 
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import org.charlzk.Components.CustomJOptionPane;
 import org.charlzk.Database.DatabaseInitializer;
-import org.charlzk.Views.RegistrationView;
+import org.charlzk.Views.LoginView;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -14,17 +15,13 @@ public class Main {
     try {
       DatabaseInitializer.initialize();
     } catch (SQLException ex) {
-      JOptionPane.showMessageDialog(
-              null,
-              "An expected error occurred. Please check the logs.",
-              "Application Error",
-              JOptionPane.ERROR_MESSAGE
-      );
+      ex.printStackTrace();
+      CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
     }
 
     SwingUtilities.invokeLater(() -> {
-      RegistrationView registrationView = new RegistrationView();
-      registrationView.setVisible(true);
+      LoginView loginView = new LoginView();
+      loginView.setVisible(true);
     });
   }
 }

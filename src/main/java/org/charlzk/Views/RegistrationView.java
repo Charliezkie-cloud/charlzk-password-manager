@@ -2,6 +2,7 @@ package org.charlzk.Views;
 
 import org.charlzk.Components.Layouts.RegistrationLayout;
 import org.charlzk.Controllers.RegistrationController;
+import org.charlzk.Events.RegistrationEvents.RegistrationWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class RegistrationView extends JFrame {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
     setTitle("Charlzk Password Manager - Register");
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setResizable(false);
 
     // ========== START OF COMPONENTS ==========
@@ -26,11 +27,26 @@ public class RegistrationView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    new RegistrationController(
+    RegistrationController registrationController = new RegistrationController(
+            // View
+            this,
+
+            // Fields
+            RegistrationLayout.usernameField,
+            RegistrationLayout.emailField,
+            RegistrationLayout.passwordField,
+            RegistrationLayout.passwordConfirmationField,
+
             // Legal components
-            RegistrationLayout.termsOfUseButton
+            RegistrationLayout.termsOfUseButton,
+            RegistrationLayout.agreementCheckbox,
+
+            // Buttons
+            RegistrationLayout.cancelButton,
+            RegistrationLayout.registerButton
     );
 
+    addWindowListener(new RegistrationWindowListener(this, registrationController));
     add(mainContent);
     pack();
     setLocationRelativeTo(null);

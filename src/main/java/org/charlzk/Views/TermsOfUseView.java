@@ -7,7 +7,7 @@ import static org.charlzk.Services.ApplicationService.setGlobalFont;
 
 public class TermsOfUseView extends JFrame {
   // Close button
-  private static JButton closeButton = new JButton("Close");
+  private static final JButton closeButton = new JButton("Close");
 
   // Terms of use content (September 2026)
   private final String content = """
@@ -51,7 +51,7 @@ public class TermsOfUseView extends JFrame {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
     setTitle("Charlzk Password Manager - Terms of Use");
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setLocationRelativeTo(null);
     setResizable(false);
 
