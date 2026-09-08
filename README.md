@@ -37,7 +37,7 @@ Security is considered in the design, but the project is still in development an
 
 ## Project Structure
 
-```text
+```text id="k1qygn"
 src/
 ├── Components/    # Reusable UI components
 ├── Controllers/   # Application logic and flow control
@@ -56,20 +56,20 @@ src/
 
 1. Clone the repository
 
-```bash
+```bash id="z6m1a0"
 git clone https://github.com/your-username/password-manager.git
 cd password-manager
 ```
 
 2. Build the project
 
-```bash
+```bash id="ymi6fp"
 mvn clean install
 ```
 
 3. Run the application
 
-```bash
+```bash id="op7crn"
 mvn exec:java
 ```
 
@@ -83,40 +83,6 @@ Planned tables include:
 
 * Users
 * Credentials
-
----
-
-## Security Notes
-
-Current state:
-
-* The database is not encrypted
-* Password hashing can still be improved
-* No advanced protection for sensitive data yet
-
-Planned improvements:
-
-* SQLCipher integration for database encryption
-* Stronger hashing such as BCrypt or Argon2
-* Secure handling of sensitive data in memory
-* Auto-lock on inactivity
-
----
-
-## Roadmap
-
-* Add credential management
-* Improve UI and usability
-* Add password generator
-* Implement search and filtering
-* Add import and export features
-* Add session timeout
-
----
-
-## Disclaimer
-
-This project is under development and should not be used for storing sensitive information until proper security measures are implemented.
 
 ---
 
