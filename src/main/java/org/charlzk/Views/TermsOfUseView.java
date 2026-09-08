@@ -9,42 +9,95 @@ public class TermsOfUseView extends JFrame {
   // Close button
   private static final JButton closeButton = new JButton("Close");
 
-  // Terms of use content (September 2026)
-  private final String content = """
-    Terms of Use
+  // Terms of use HTML content (September 2026)
+  private final String html = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        max-width: 760px;
+        margin: 40px auto;
+        padding: 0 20px;
+        line-height: 1.6;
+        color: #222;
+        background-color: #fdfdfd;
+      }
+      h1 {
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+      }
+      h2 {
+        margin-top: 36px;
+        color: #1a1a1a;
+      }
+      .updated {
+        color: #666;
+        font-size: 0.95em;
+        margin-bottom: 30px;
+      }
+      code {
+        background-color: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      ul {
+        padding-left: 22px;
+      }
+      li {
+        margin-bottom: 6px;
+      }
+      strong {
+        color: #111;
+      }
+    </style>
+    </head>
+    <body>
     
-    Last Updated: September 2026
+    <h1>Terms of Use</h1>
+    <p class="updated"><strong>Last Updated:</strong> September 2026</p>
     
-    By creating an account and using this Password Manager application, the user agrees to the following terms and conditions.
+    <p>By using this Password Manager application, you agree to the following terms and conditions.</p>
     
-    1. Local-Only Storage
-       This application stores all user data locally on the user's device. No data, including passwords or personal information, is transmitted to any external server or third party. The developer does not have access to any stored data.
+    <h2>1. Local-Only Storage</h2>
+    <p>This application stores all user data locally on your device. No data, including passwords or personal information, is transmitted to any external server or third party. The developer does not have access to any stored data.</p>
     
-    2. User Responsibility
-       The user is solely responsible for:
+    <h2>2. User Responsibility</h2>
+    <p>You are solely responsible for:</p>
+    <ul>
+      <li>Maintaining the confidentiality of your master password</li>
+      <li>Ensuring the security of your device</li>
+      <li>Creating backups of your data if needed</li>
+    </ul>
+    <p>Loss of the master password may result in permanent loss of access to stored data.</p>
     
-    Maintaining the confidentiality of their master password
-    Ensuring the security of their device
-    Creating backups of their data if needed
+    <h2>3. No Password Recovery</h2>
+    <p>This application does not provide any password recovery mechanism. If the master password is forgotten, the stored data cannot be recovered.</p>
     
-    Loss of the master password may result in permanent loss of access to stored data.
+    <h2>4. Security Disclaimer</h2>
+    <p>While this application uses encryption technologies to protect stored data, no system can be guaranteed to be completely secure. You acknowledge that all use is at your own risk.</p>
     
-    3. No Password Recovery
-       This application does not provide any password recovery mechanism. If the master password is forgotten, the stored data cannot be recovered.
+    <h2>5. Limitation of Liability</h2>
+    <p>This software is provided "as is" without warranties of any kind. The developer shall not be held liable for any data loss, security breaches, system failures, or damages arising from the use or inability to use this application.</p>
     
-    4. Security Disclaimer
-       While this application uses encryption technologies to protect stored data, no system can be guaranteed to be completely secure. The user acknowledges that all use is at their own risk.
+    <h2>6. Proper Use</h2>
+    <p>You agree to use the application only for lawful purposes and in a manner that does not harm the system or other users.</p>
     
-    5. Limitation of Liability
-       This software is provided "as is" without warranties of any kind. The developer shall not be held liable for any data loss, security breaches, system failures, or damages arising from the use or inability to use this application.
+    <h2>7. Modifications</h2>
+    <p>These terms may be updated in future versions of the application. Continued use of the application constitutes acceptance of any changes.</p>
     
-    6. Proper Use
-       The user agrees to use the application only for lawful purposes and in a manner that does not harm the system or other users.
+    <h2>8. License</h2>
+    <p>This project is open source and distributed under the MIT License. You are free to use, modify, and distribute the software, provided that the original license and copyright notice are included. The full source code, along with the license text, is publicly available at <code>[INSERT GITHUB REPO URL HERE]</code>.</p>
     
-    7. Modifications
-       These terms may be updated in future versions of the application. Continued use of the application constitutes acceptance of any changes.
+    <p>By using this application, you acknowledge that you have read, understood, and agreed to these Terms of Use.</p>
     
-    By proceeding with registration, the user acknowledges that they have read, understood, and agreed to these Terms of Use.
+    </body>
+    </html>
     """;
 
   public TermsOfUseView() {
@@ -60,17 +113,16 @@ public class TermsOfUseView extends JFrame {
     JPanel mainContent = new JPanel(new BorderLayout(10, 10));
     mainContent.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-    JTextArea contentArea = new JTextArea(content);
+    JEditorPane contentArea = new JEditorPane("text/html", html);
     contentArea.setEditable(false);
-    contentArea.setLineWrap(true);
-    contentArea.setWrapStyleWord(true);
-    contentArea.setCaretPosition(0);
+    contentArea.setOpaque(false);
+    contentArea.setBorder(null);
+    contentArea.setFocusable(false);
 
     JScrollPane scrollPane = new JScrollPane(contentArea);
     scrollPane.setPreferredSize(new Dimension(500, 400));
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-    // 3. Button Action
     closeButton.addActionListener(e -> dispose());
 
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

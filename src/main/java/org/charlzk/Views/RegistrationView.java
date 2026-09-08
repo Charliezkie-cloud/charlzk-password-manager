@@ -38,7 +38,7 @@ public class RegistrationView extends JFrame {
             RegistrationLayout.passwordConfirmationField,
 
             // Legal components
-            RegistrationLayout.termsOfUseButton,
+            RegistrationLayout.termsOfUsePane,
             RegistrationLayout.agreementCheckbox,
 
             // Buttons

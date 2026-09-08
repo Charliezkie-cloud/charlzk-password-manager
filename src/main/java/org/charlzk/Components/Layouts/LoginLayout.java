@@ -4,6 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginLayout extends JPanel {
+  // HTML content
+  private static final String registerHtmlContent = """
+    <html>
+      <body style='font-family:Segoe UI, sans-serif;font-size:11px;'>
+      Don’t have an account? <a href='register'>Create one</a>.
+      </body>
+    </html>
+    """;
+
   // Field column length
   private static final int fieldColumnLength = 30;
 
@@ -12,7 +21,7 @@ public class LoginLayout extends JPanel {
   public static final JPasswordField passwordField = new JPasswordField(fieldColumnLength);
 
   // Buttons
-  public static final JButton registerButton = new JButton("Don’t have an account? Create one.");
+  public static final JEditorPane registerPane = new JEditorPane("text/html", registerHtmlContent);
   public static final JButton loginButton = new JButton("Sign in");
 
   public LoginLayout() {
@@ -51,7 +60,12 @@ public class LoginLayout extends JPanel {
     gbc.gridy = 4;
     formPanel.add(buttonsPanel, gbc);
 
-    buttonsPanel.add(registerButton);
+    registerPane.setEditable(false);
+    registerPane.setOpaque(false);
+    registerPane.setBorder(null);
+    registerPane.setFocusable(false);
+
+    buttonsPanel.add(registerPane);
     buttonsPanel.add(loginButton);
 
     add(formPanel, BorderLayout.NORTH);

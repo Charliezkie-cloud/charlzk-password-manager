@@ -35,7 +35,7 @@ public class LoginView extends JFrame {
             LoginLayout.passwordField,
 
             // Buttons
-            LoginLayout.registerButton,
+            LoginLayout.registerPane,
             LoginLayout.loginButton
     );
 

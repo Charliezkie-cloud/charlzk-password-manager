@@ -4,6 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RegistrationLayout extends JPanel {
+  // HTML content
+  private static final String termsOfUseHtmlContent = """
+  <html>
+    <body style='font-family:Segoe UI, sans-serif;font-size:11px;'>
+    By creating an account, you agree to our <a href='terms'>Terms of Use</a> and <a href='privacy'>Privacy Policy</a>.
+    </body>
+  </html>
+  """;
+
   // Field column length
   private static final int fieldColumnLength = 30;
 
@@ -14,7 +23,7 @@ public class RegistrationLayout extends JPanel {
   public static final JPasswordField passwordConfirmationField = new JPasswordField(fieldColumnLength);
 
   // Legal components
-  public static final JButton termsOfUseButton = new JButton("By creating an account, you agree to our Terms of Use and Privacy Policy.");
+  public static final JEditorPane termsOfUsePane = new JEditorPane("text/html", termsOfUseHtmlContent);
   public static final JCheckBox agreementCheckbox = new JCheckBox("I Agree");
 
   // Buttons
@@ -68,13 +77,19 @@ public class RegistrationLayout extends JPanel {
     formPanel.add(passwordConfirmationField, gbc);
 
     // ===== Buttons panel =====
+
     JPanel legalPanel = new JPanel();
     legalPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
     gbc.gridy = 8;
     formPanel.add(legalPanel, gbc);
 
-    legalPanel.add(termsOfUseButton);
+    termsOfUsePane.setEditable(false);
+    termsOfUsePane.setOpaque(false);
+    termsOfUsePane.setBorder(null);
+    termsOfUsePane.setFocusable(false);
+
+    legalPanel.add(termsOfUsePane);
     legalPanel.add(agreementCheckbox);
 
 

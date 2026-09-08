@@ -1,19 +1,20 @@
 package org.charlzk.Controllers;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkListener;
 
 import org.charlzk.Events.RegistrationEvents.CancelButtonOnAction;
 import org.charlzk.Events.RegistrationEvents.RegisterButtonOnAction;
-import org.charlzk.Events.RegistrationEvents.TermsOfUseButtonOnAction;
+import org.charlzk.Events.RegistrationEvents.TermsOfUsePaneHyperlinkListener;
 
 public class RegistrationController {
   // Buttons
-  private final JButton termsOfUseButton;
+  private final JEditorPane termsOfUsePane;
   private final JButton cancelButton;
   private final JButton registerButton;
 
   // Events
-  private final TermsOfUseButtonOnAction termsOfUseButtonOnAction;
+  private final HyperlinkListener termsOfUsePaneHyperlinkListener;
   private final RegisterButtonOnAction registerButtonOnAction;
   private final CancelButtonOnAction cancelButtonOnAction;
 
@@ -28,18 +29,18 @@ public class RegistrationController {
           JPasswordField passwordConfirmationField,
 
           // Legal components
-          JButton termsOfUseButton,
+          JEditorPane termsOfUsePane,
           JCheckBox agreementCheckbox,
 
           // Buttons
           JButton cancelButton,
           JButton registerButton
   ) {
-    this.termsOfUseButton = termsOfUseButton;
+    this.termsOfUsePane = termsOfUsePane;
     this.cancelButton = cancelButton;
     this.registerButton = registerButton;
-    
-    this.termsOfUseButtonOnAction = new TermsOfUseButtonOnAction();
+
+    this.termsOfUsePaneHyperlinkListener = new TermsOfUsePaneHyperlinkListener();
     this.cancelButtonOnAction = new CancelButtonOnAction(registrationView);
     this.registerButtonOnAction = new RegisterButtonOnAction(
             registrationView,
@@ -51,13 +52,13 @@ public class RegistrationController {
     );
 
     // Component events
-    termsOfUseButton.addActionListener(termsOfUseButtonOnAction);
+    termsOfUsePane.addHyperlinkListener(termsOfUsePaneHyperlinkListener);
     registerButton.addActionListener(registerButtonOnAction);
     cancelButton.addActionListener(cancelButtonOnAction);
   }
 
   public void close() {
-    termsOfUseButton.removeActionListener(termsOfUseButtonOnAction);
+    termsOfUsePane.removeHyperlinkListener(termsOfUsePaneHyperlinkListener);
     registerButton.removeActionListener(registerButtonOnAction);
     cancelButton.removeActionListener(cancelButtonOnAction);
   }

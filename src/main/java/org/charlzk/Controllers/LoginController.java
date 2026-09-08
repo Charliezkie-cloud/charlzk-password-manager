@@ -1,18 +1,17 @@
 package org.charlzk.Controllers;
 
 import org.charlzk.Events.LoginEvents.LoginButtonOnAction;
-import org.charlzk.Events.LoginEvents.RegisterButtonOnAction;
+import org.charlzk.Events.LoginEvents.RegisterPaneHyperlinkListener;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public class LoginController {
   // Buttons
-  private final JButton registerButton;
+  private final JEditorPane registerPane;
   private final JButton loginButton;
 
   // Events
-  private final RegisterButtonOnAction registerButtonOnAction;
+  private final RegisterPaneHyperlinkListener registerPaneHyperlinkListener;
   private final LoginButtonOnAction loginButtonOnAction;
 
   public LoginController(
@@ -24,22 +23,22 @@ public class LoginController {
           JPasswordField passwordField,
 
           // Buttons
-          JButton registerButton,
+          JEditorPane registerPane,
           JButton loginButton
   ) {
-    this.registerButton = registerButton;
+    this.registerPane = registerPane;
     this.loginButton = loginButton;
 
-    this.registerButtonOnAction = new RegisterButtonOnAction(loginView);
+    this.registerPaneHyperlinkListener = new RegisterPaneHyperlinkListener(loginView);
     this.loginButtonOnAction = new LoginButtonOnAction(loginView, emailField, passwordField);
 
     // Component events
-    registerButton.addActionListener(registerButtonOnAction);
+    registerPane.addHyperlinkListener(registerPaneHyperlinkListener);
     loginButton.addActionListener(loginButtonOnAction);
   }
 
   public void close() {
-    registerButton.removeActionListener(registerButtonOnAction);
+    registerPane.removeHyperlinkListener(registerPaneHyperlinkListener);
     loginButton.removeActionListener(loginButtonOnAction);
   }
 }
