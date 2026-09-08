@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDAO {
-  public boolean createUser(String username, String email, String passwordHash) {
+  public boolean createUser(String username, String email, String passwordHash) throws SQLException, IOException {
     String sql = "INSERT INTO Users (username, email, password_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
 
     try (Connection conn = DatabaseConnection.getConnection()) {
@@ -21,13 +21,10 @@ public class UserDAO {
       statement.setLong(5, System.currentTimeMillis());
 
       return statement.executeUpdate() > 0;
-    } catch (SQLException | IOException ex) {
-      System.out.println("UserDAO.createUser Error: " + ex.getMessage());
-      return false;
     }
   }
 
-  public User getUserById(int userId) {
+  public User getUserById(int userId) throws SQLException, IOException {
     String sql = "SELECT * FROM Users WHERE user_id = ? LIMIT 1";
 
     try (Connection conn = DatabaseConnection.getConnection()) {
@@ -54,13 +51,10 @@ public class UserDAO {
       } else {
         return null;
       }
-    } catch (SQLException | IOException ex) {
-      System.out.println("UserDAO.getUserById Error: " + ex.getMessage());
-      return null;
     }
   }
 
-  public User getUserByEmail(String email) {
+  public User getUserByEmail(String email) throws SQLException, IOException {
     String sql = "SELECT * FROM Users WHERE email = ? LIMIT 1";
 
     try (Connection conn = DatabaseConnection.getConnection()) {
@@ -87,13 +81,10 @@ public class UserDAO {
       } else {
         return null;
       }
-    } catch (SQLException | IOException ex) {
-      System.out.println("UserDAO.getUserByEmail Error: " + ex.getMessage());
-      return null;
     }
   }
 
-  public User updateUser(int userId, String email, String passwordHash) {
+  public User updateUser(int userId, String email, String passwordHash) throws SQLException, IOException {
     String sql = "UPDATE Users SET email = ?, passwordHash = ?, updated_at = ? WHERE user_id = ?";
     try (Connection conn = DatabaseConnection.getConnection()) {
       PreparedStatement statement = conn.prepareStatement(sql);
@@ -108,13 +99,10 @@ public class UserDAO {
         return getUserById(userId);
       else
         return null;
-    } catch (SQLException | IOException ex) {
-      System.out.println("UserDAO.updateUser Error: " + ex.getMessage());
-      return null;
     }
   }
 
-  public User deleteUser(int userId) {
+  public User deleteUser(int userId) throws SQLException, IOException {
     String sql = "DELETE FROM Users WHERE user_id = ?";
 
     try (Connection conn = DatabaseConnection.getConnection()) {
@@ -126,13 +114,10 @@ public class UserDAO {
         return getUserById(userId);
       else
         return null;
-    } catch (SQLException | IOException ex) {
-      System.out.println("UserDAO.deleteUser Error: " + ex.getMessage());
-      return null;
     }
   }
 
-  public ArrayList<User> getAllUsers() {
+  public ArrayList<User> getAllUsers() throws SQLException, IOException {
     ArrayList<User> users = new ArrayList<>();
     String sql = "SELECT * FROM Users;";
 
@@ -146,9 +131,6 @@ public class UserDAO {
       }
 
       return users;
-    } catch (SQLException | IOException ex) {
-      System.out.println("UserDAO.getAllUsers Error: " + ex.getMessage());
-      return new ArrayList<>();
     }
   }
 }

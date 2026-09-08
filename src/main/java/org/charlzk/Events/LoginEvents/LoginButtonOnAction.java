@@ -7,6 +7,7 @@ import org.charlzk.Views.MainView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginButtonOnAction implements ActionListener {
@@ -47,7 +48,7 @@ public class LoginButtonOnAction implements ActionListener {
       loginView.dispose();
       MainView mainView = new MainView();
       mainView.setVisible(true);
-    } catch (SQLException ex) {
+    } catch (SQLException | IOException ex) {
       CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
     }
   }

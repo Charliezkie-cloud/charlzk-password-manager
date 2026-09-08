@@ -4,17 +4,18 @@ import org.charlzk.Components.CustomJOptionPane;
 import org.charlzk.DAO.UserDAO;
 import org.charlzk.Models.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AuthServices {
   private static final UserDAO userDAO = new UserDAO();
 
-  public static boolean register(String username, String email, String password) throws SQLException {
+  public static boolean register(String username, String email, String password) throws SQLException, IOException {
     String hashedPassword = PasswordServices.hashPassword(password);
     return userDAO.createUser(username, email, hashedPassword);
   }
 
-  public static boolean login(String email, String password) throws SQLException {
+  public static boolean login(String email, String password) throws SQLException, IOException {
     User user = userDAO.getUserByEmail(email);
 
     if (user == null) {

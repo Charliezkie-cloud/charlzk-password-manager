@@ -6,6 +6,7 @@ import org.charlzk.Services.AuthServices;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class RegisterButtonOnAction implements ActionListener {
@@ -57,8 +58,7 @@ public class RegisterButtonOnAction implements ActionListener {
 
       CustomJOptionPane.showSuccessMessageDialog("Account registered!", "Registration Success");
       registrationView.dispose();
-    } catch (SQLException ex) {
-      ex.printStackTrace();
+    } catch (SQLException | IOException ex) {
       CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
     }
   }

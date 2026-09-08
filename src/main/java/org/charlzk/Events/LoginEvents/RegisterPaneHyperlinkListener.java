@@ -16,12 +16,10 @@ public class RegisterPaneHyperlinkListener implements HyperlinkListener {
   @Override
   public void hyperlinkUpdate(HyperlinkEvent e) {
     if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-      switch (e.getDescription()) {
-        case "register":
-          loginView.dispose();
-          RegistrationView registrationView = new RegistrationView();
-          registrationView.setVisible(true);
-          break;
+      if (e.getDescription().equals("register")) {
+        loginView.dispose();
+        RegistrationView registrationView = new RegistrationView();
+        registrationView.setVisible(true);
       }
     }
   }
