@@ -6,7 +6,7 @@
 
 This Privacy Policy explains how this Password Manager application (referred to here as "the Application") handles your data. The short version is simple: the Application does not collect, transmit, or share any of your information. Everything you store stays on your own computer, and nobody but you has access to it.
 
-We wrote this policy in plain language on purpose. If any part of it feels unclear, feel free to open an issue on the project's GitHub repository at `[INSERT GITHUB REPO URL HERE]`.
+We wrote this policy in plain language on purpose. If any part of it feels unclear, feel free to open an issue on the project's GitHub repository at [Charlzk Password Manager](https://github.com/Charliezkie-cloud/charlzk-password-manager).
 
 ## 2. What Data the Application Collects
 
@@ -44,7 +44,7 @@ That said, encryption protects your data from someone who gets hold of the file.
 
 ## 7. Open Source Transparency
 
-This project is open source and released under the MIT License. The full source code is publicly available at `[INSERT GITHUB REPO URL HERE]`, so you, or anyone else, can inspect exactly what the Application does with your data. You do not have to take our word for any of the claims in this policy. You can read the code yourself, or ask someone you trust to review it for you.
+This project is open source and released under the MIT License. The full source code is publicly available at [Charlzk Password Manager](https://github.com/Charliezkie-cloud/charlzk-password-manager), so you, or anyone else, can inspect exactly what the Application does with your data. You do not have to take our word for any of the claims in this policy. You can read the code yourself, or ask someone you trust to review it for you.
 
 ## 8. Backups Are Your Responsibility
 
@@ -60,4 +60,4 @@ This project is distributed under the MIT License. You are free to use, modify, 
 
 ## 11. Contact
 
-If you have questions about this policy or the project in general, the best place to reach out is through the GitHub repository at `[INSERT GITHUB REPO URL HERE]`, either by opening an issue or checking the contact details listed there.
+If you have questions about this policy or the project in general, the best place to reach out is through the GitHub repository at [Charlzk Password Manager](https://github.com/Charliezkie-cloud/charlzk-password-manager), either by opening an issue or checking the contact details listed there.

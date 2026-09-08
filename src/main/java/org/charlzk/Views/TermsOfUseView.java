@@ -92,7 +92,7 @@ public class TermsOfUseView extends JFrame {
     <p>These terms may be updated in future versions of the application. Continued use of the application constitutes acceptance of any changes.</p>
     
     <h2>8. License</h2>
-    <p>This project is open source and distributed under the MIT License. You are free to use, modify, and distribute the software, provided that the original license and copyright notice are included. The full source code, along with the license text, is publicly available at <code>[INSERT GITHUB REPO URL HERE]</code>.</p>
+    <p>This project is open source and distributed under the MIT License. You are free to use, modify, and distribute the software, provided that the original license and copyright notice are included. The full source code, along with the license text, is publicly available at <code>https://github.com/Charliezkie-cloud/charlzk-password-manager</code>.</p>
     
     <p>By using this application, you acknowledge that you have read, understood, and agreed to these Terms of Use.</p>
     

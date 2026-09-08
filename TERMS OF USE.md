@@ -40,6 +40,6 @@ These terms may be updated in future versions of the application. Continued use 
 
 ## 8. License
 
-This project is open source and distributed under the MIT License. You are free to use, modify, and distribute the software, provided that the original license and copyright notice are included. The full source code, along with the license text, is publicly available at `[INSERT GITHUB REPO URL HERE]`.
+This project is open source and distributed under the MIT License. You are free to use, modify, and distribute the software, provided that the original license and copyright notice are included. The full source code, along with the license text, is publicly available at [Charlzk Password Manager](https://github.com/Charliezkie-cloud/charlzk-password-manager).
 
 By using this application, you acknowledge that you have read, understood, and agreed to these Terms of Use.

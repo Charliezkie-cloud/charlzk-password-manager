@@ -64,7 +64,7 @@ public class PrivacyView extends JFrame {
     
     <h2>1. Introduction</h2>
     <p>This Privacy Policy explains how this Password Manager application (referred to here as "the Application") handles your data. The short version is simple: the Application does not collect, transmit, or share any of your information. Everything you store stays on your own computer, and nobody but you has access to it.</p>
-    <p>We wrote this policy in plain language on purpose. If any part of it feels unclear, feel free to open an issue on the project's GitHub repository at <code>[INSERT GITHUB REPO URL HERE]</code>.</p>
+    <p>We wrote this policy in plain language on purpose. If any part of it feels unclear, feel free to open an issue on the project's GitHub repository at <code>https://github.com/Charliezkie-cloud/charlzk-password-manager</code>.</p>
     
     <h2>2. What Data the Application Collects</h2>
     <p>None. This is a fully offline, local-first application. It does not connect to the internet, does not phone home, does not use analytics, and does not send crash reports anywhere. There are no servers involved in how this software operates, because there is nothing to connect to in the first place.</p>
@@ -92,7 +92,7 @@ public class PrivacyView extends JFrame {
     <p>That said, encryption protects your data from someone who gets hold of the file. It cannot protect you from things outside the application's control, such as malware already running on your computer, a compromised operating system, or someone who already knows your master password. Keeping your own device secure is still your responsibility.</p>
     
     <h2>7. Open Source Transparency</h2>
-    <p>This project is open source and released under the MIT License. The full source code is publicly available at <code>[INSERT GITHUB REPO URL HERE]</code>, so you, or anyone else, can inspect exactly what the Application does with your data. You do not have to take our word for any of the claims in this policy. You can read the code yourself, or ask someone you trust to review it for you.</p>
+    <p>This project is open source and released under the MIT License. The full source code is publicly available at <code>https://github.com/Charliezkie-cloud/charlzk-password-manager</code>, so you, or anyone else, can inspect exactly what the Application does with your data. You do not have to take our word for any of the claims in this policy. You can read the code yourself, or ask someone you trust to review it for you.</p>
     
     <h2>8. Backups Are Your Responsibility</h2>
     <p>Since everything is stored locally and there is no cloud sync, there is also no automatic backup of your vault. If your computer's hard drive fails, or the vault file is accidentally deleted, that data cannot be recovered by us, because we never had a copy in the first place. We recommend backing up your encrypted vault file periodically to a location you trust, such as an external drive.</p>
@@ -104,7 +104,7 @@ public class PrivacyView extends JFrame {
     <p>This project is distributed under the MIT License. You are free to use, modify, and distribute the software, provided that the original license and copyright notice are included. As with most open source software distributed under MIT, it is provided "as is," without warranty of any kind.</p>
     
     <h2>11. Contact</h2>
-    <p>If you have questions about this policy or the project in general, the best place to reach out is through the GitHub repository at <code>[INSERT GITHUB REPO URL HERE]</code>, either by opening an issue or checking the contact details listed there.</p>
+    <p>If you have questions about this policy or the project in general, the best place to reach out is through the GitHub repository at <code>https://github.com/Charliezkie-cloud/charlzk-password-manager</code>, either by opening an issue or checking the contact details listed there.</p>
     
     </body>
     </html>
