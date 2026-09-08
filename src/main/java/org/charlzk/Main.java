@@ -6,6 +6,7 @@ import org.charlzk.Database.DatabaseInitializer;
 import org.charlzk.Views.LoginView;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Main {
@@ -14,8 +15,7 @@ public class Main {
 
     try {
       DatabaseInitializer.initialize();
-    } catch (SQLException ex) {
-      ex.printStackTrace();
+    } catch (SQLException | IOException ex) {
       CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
     }
 

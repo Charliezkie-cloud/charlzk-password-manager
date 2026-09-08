@@ -3,7 +3,7 @@ package org.charlzk.DAO;
 import org.charlzk.Database.DatabaseConnection;
 import org.charlzk.Models.User;
 
-import javax.xml.transform.Result;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class UserDAO {
       statement.setLong(5, System.currentTimeMillis());
 
       return statement.executeUpdate() > 0;
-    } catch (SQLException ex) {
+    } catch (SQLException | IOException ex) {
       System.out.println("UserDAO.createUser Error: " + ex.getMessage());
       return false;
     }
@@ -54,7 +54,7 @@ public class UserDAO {
       } else {
         return null;
       }
-    } catch (SQLException ex) {
+    } catch (SQLException | IOException ex) {
       System.out.println("UserDAO.getUserById Error: " + ex.getMessage());
       return null;
     }
@@ -87,7 +87,7 @@ public class UserDAO {
       } else {
         return null;
       }
-    } catch (SQLException ex) {
+    } catch (SQLException | IOException ex) {
       System.out.println("UserDAO.getUserByEmail Error: " + ex.getMessage());
       return null;
     }
@@ -108,7 +108,7 @@ public class UserDAO {
         return getUserById(userId);
       else
         return null;
-    } catch (SQLException ex) {
+    } catch (SQLException | IOException ex) {
       System.out.println("UserDAO.updateUser Error: " + ex.getMessage());
       return null;
     }
@@ -126,7 +126,7 @@ public class UserDAO {
         return getUserById(userId);
       else
         return null;
-    } catch (SQLException ex) {
+    } catch (SQLException | IOException ex) {
       System.out.println("UserDAO.deleteUser Error: " + ex.getMessage());
       return null;
     }
@@ -146,7 +146,7 @@ public class UserDAO {
       }
 
       return users;
-    } catch (SQLException ex) {
+    } catch (SQLException | IOException ex) {
       System.out.println("UserDAO.getAllUsers Error: " + ex.getMessage());
       return new ArrayList<>();
     }

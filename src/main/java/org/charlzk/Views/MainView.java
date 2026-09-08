@@ -5,6 +5,7 @@ import org.charlzk.Components.Tabs.MainTab;
 import org.charlzk.Components.Tabs.PasswordGeneratorTab;
 import org.charlzk.Components.Tabs.SettingsTab;
 import org.charlzk.Controllers.MainController;
+import org.charlzk.Events.MainEvents.MainWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +17,7 @@ public class MainView extends JFrame {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
     setTitle("Charlzk Password Manager");
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setSize(1250, 800);
     setMinimumSize(new Dimension(900, 600));
 
@@ -36,8 +37,9 @@ public class MainView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    new MainController();
+    MainController mainController = new MainController();
 
+    addWindowListener(new MainWindowListener(mainController));
     add(mainContent);
     pack();
     setLocationRelativeTo(null);

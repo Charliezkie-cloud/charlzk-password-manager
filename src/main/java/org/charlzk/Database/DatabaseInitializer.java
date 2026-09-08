@@ -1,11 +1,12 @@
 package org.charlzk.Database;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseInitializer {
-  public static void initialize() throws SQLException {
+  public static void initialize() throws SQLException, IOException {
     try (Connection conn = DatabaseConnection.getConnection()) {
       if (isDatabaseInitialized()) return;
 
@@ -56,7 +57,7 @@ public class DatabaseInitializer {
     }
   }
 
-  private static boolean isDatabaseInitialized() throws SQLException {
+  private static boolean isDatabaseInitialized() throws SQLException, IOException {
     String sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'Users';";
     Connection conn = DatabaseConnection.getConnection();
     return conn.createStatement().executeQuery(sql).next();
