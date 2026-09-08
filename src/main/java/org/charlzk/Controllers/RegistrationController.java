@@ -42,6 +42,7 @@ public class RegistrationController {
     this.termsOfUseButtonOnAction = new TermsOfUseButtonOnAction();
     this.cancelButtonOnAction = new CancelButtonOnAction(registrationView);
     this.registerButtonOnAction = new RegisterButtonOnAction(
+            registrationView,
             usernameField,
             emailField,
             passwordField,
@@ -50,9 +51,9 @@ public class RegistrationController {
     );
 
     // Component events
-    termsOfUseButton.addActionListener(this.termsOfUseButtonOnAction);
-    registerButton.addActionListener(this.registerButtonOnAction);
-    cancelButton.addActionListener(this.cancelButtonOnAction);
+    termsOfUseButton.addActionListener(termsOfUseButtonOnAction);
+    registerButton.addActionListener(registerButtonOnAction);
+    cancelButton.addActionListener(cancelButtonOnAction);
   }
 
   public void close() {

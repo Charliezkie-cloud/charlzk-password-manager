@@ -1,4 +1,4 @@
-package org.charlzk.Components;
+package org.charlzk.Components.Tabs;
 
 import javax.swing.*;
 import java.awt.*;

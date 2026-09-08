@@ -1,9 +1,9 @@
 package org.charlzk.Views;
 
-import org.charlzk.Components.FoldersTab;
-import org.charlzk.Components.MainTab;
-import org.charlzk.Components.PasswordGeneratorTab;
-import org.charlzk.Components.SettingsTab;
+import org.charlzk.Components.Tabs.FoldersTab;
+import org.charlzk.Components.Tabs.MainTab;
+import org.charlzk.Components.Tabs.PasswordGeneratorTab;
+import org.charlzk.Components.Tabs.SettingsTab;
 import org.charlzk.Controllers.MainController;
 
 import javax.swing.*;

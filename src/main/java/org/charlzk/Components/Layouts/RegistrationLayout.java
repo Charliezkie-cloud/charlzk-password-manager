@@ -38,14 +38,14 @@ public class RegistrationLayout extends JPanel {
     gbc.gridy = 0;
     gbc.weightx = 1.0;
     gbc.weighty = 0.0;
-    formPanel.add(new JLabel("Username (Required)"), gbc);
+    formPanel.add(new JLabel("Username"), gbc);
 
     gbc.gridy = 1;
     formPanel.add(usernameField, gbc);
 
     // ===== Email row =====
     gbc.gridy = 2;
-    formPanel.add(new JLabel("Email (Required)"), gbc);
+    formPanel.add(new JLabel("Email"), gbc);
 
     gbc.gridy = 3;
     gbc.weighty = 1.0;
@@ -53,7 +53,7 @@ public class RegistrationLayout extends JPanel {
 
     // ===== Password row =====
     gbc.gridy = 4;
-    formPanel.add(new JLabel("Password (Required)"), gbc);
+    formPanel.add(new JLabel("Password"), gbc);
 
     gbc.gridy = 5;
     gbc.weighty = 1.0;
@@ -61,7 +61,7 @@ public class RegistrationLayout extends JPanel {
 
     // ===== Password confirmation row =====
     gbc.gridy = 6;
-    formPanel.add(new JLabel("Confirm Password (Required)"), gbc);
+    formPanel.add(new JLabel("Confirm Password"), gbc);
 
     gbc.gridy = 7;
     gbc.weighty = 1.0;

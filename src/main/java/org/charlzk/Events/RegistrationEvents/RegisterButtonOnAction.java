@@ -1,12 +1,17 @@
 package org.charlzk.Events.RegistrationEvents;
 
 import org.charlzk.Components.CustomJOptionPane;
+import org.charlzk.Services.AuthServices;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class RegisterButtonOnAction implements ActionListener {
+  // View
+  private final JFrame registrationView;
+
   // Fields
   private final JTextField usernameField;
   private final JTextField emailField;
@@ -17,6 +22,9 @@ public class RegisterButtonOnAction implements ActionListener {
   private final JCheckBox agreementCheckbox;
 
   public RegisterButtonOnAction(
+          // View
+          JFrame registrationView,
+
           // Fields
           JTextField usernameField,
           JTextField emailField,
@@ -26,6 +34,7 @@ public class RegisterButtonOnAction implements ActionListener {
           // Checkbox
           JCheckBox agreementCheckbox
   ) {
+    this.registrationView = registrationView;
     this.usernameField = usernameField;
     this.emailField = emailField;
     this.passwordField = passwordField;
@@ -37,7 +46,21 @@ public class RegisterButtonOnAction implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     if (!validateForm()) return;
 
+    String username = usernameField.getText();
+    String email = emailField.getText();
+    char[] passwordChar = passwordField.getPassword();
+    String password = new String(passwordChar);
 
+    try {
+      if (!AuthServices.register(username, email, password))
+        return;
+
+      CustomJOptionPane.showSuccessMessageDialog("Account registered!", "Registration Success");
+      registrationView.dispose();
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+      CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
+    }
   }
 
   private boolean validateForm() {

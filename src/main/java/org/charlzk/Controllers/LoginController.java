@@ -1,8 +1,10 @@
 package org.charlzk.Controllers;
 
+import org.charlzk.Events.LoginEvents.LoginButtonOnAction;
 import org.charlzk.Events.LoginEvents.RegisterButtonOnAction;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class LoginController {
   // Buttons
@@ -11,6 +13,7 @@ public class LoginController {
 
   // Events
   private final RegisterButtonOnAction registerButtonOnAction;
+  private final LoginButtonOnAction loginButtonOnAction;
 
   public LoginController(
           // View
@@ -28,12 +31,15 @@ public class LoginController {
     this.loginButton = loginButton;
 
     this.registerButtonOnAction = new RegisterButtonOnAction(loginView);
+    this.loginButtonOnAction = new LoginButtonOnAction(loginView, emailField, passwordField);
 
     // Component events
-    registerButton.addActionListener(this.registerButtonOnAction);
+    registerButton.addActionListener(registerButtonOnAction);
+    loginButton.addActionListener(loginButtonOnAction);
   }
 
   public void close() {
-    registerButton.removeActionListener(this.registerButtonOnAction);
+    registerButton.removeActionListener(registerButtonOnAction);
+    loginButton.removeActionListener(loginButtonOnAction);
   }
 }
