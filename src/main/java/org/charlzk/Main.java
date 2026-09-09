@@ -1,6 +1,6 @@
 package org.charlzk;
 
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import org.charlzk.Components.CustomJOptionPane;
 import org.charlzk.Database.DatabaseInitializer;
 import org.charlzk.Views.LoginView;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class Main {
   public static void main(String[] args) {
-    FlatMacLightLaf.setup();
+    FlatMacDarkLaf.setup();
 
     try {
       DatabaseInitializer.initialize();

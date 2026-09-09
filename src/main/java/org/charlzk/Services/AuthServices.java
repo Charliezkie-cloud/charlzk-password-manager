@@ -3,6 +3,7 @@ package org.charlzk.Services;
 import org.charlzk.Components.CustomJOptionPane;
 import org.charlzk.DAO.UserDAO;
 import org.charlzk.Models.User;
+import org.charlzk.Session.SessionManager;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -27,6 +28,8 @@ public class AuthServices {
       CustomJOptionPane.showErrorMessageDialog("We couldn't verify your credentials. Please check your email and password and try again.", "Login Failed");
       return false;
     }
+
+    SessionManager.getInstance().login(user);
 
     return true;
   }

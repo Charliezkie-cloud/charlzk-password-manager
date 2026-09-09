@@ -3,7 +3,7 @@ package org.charlzk.Views;
 import javax.swing.*;
 import java.awt.*;
 
-import static org.charlzk.Services.ApplicationService.setGlobalFont;
+import static org.charlzk.Services.ApplicationServices.setGlobalFont;
 
 public class PrivacyView extends JFrame {
   // Close button

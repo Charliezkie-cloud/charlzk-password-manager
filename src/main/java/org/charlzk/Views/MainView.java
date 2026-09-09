@@ -10,7 +10,7 @@ import org.charlzk.Events.MainEvents.MainWindowListener;
 import javax.swing.*;
 import java.awt.*;
 
-import static org.charlzk.Services.ApplicationService.setGlobalFont;
+import static org.charlzk.Services.ApplicationServices.setGlobalFont;
 
 public class MainView extends JFrame {
   public MainView() {

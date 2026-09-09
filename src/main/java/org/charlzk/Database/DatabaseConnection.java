@@ -1,6 +1,6 @@
 package org.charlzk.Database;
 
-import org.charlzk.Services.ApplicationService;
+import org.charlzk.Services.ApplicationServices;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,7 +13,7 @@ public class DatabaseConnection {
   private static Connection connection;
 
   public static Connection getConnection() throws SQLException, IOException {
-    Path appDataDir = ApplicationService.ensureAppDataDir();
+    Path appDataDir = ApplicationServices.ensureAppDataDir();
     Path dbFile = appDataDir.resolve(DATABASE_URL);
 
     if (connection == null || connection.isClosed()) {

@@ -7,7 +7,7 @@ import org.charlzk.Events.RegistrationEvents.RegistrationWindowListener;
 import javax.swing.*;
 import java.awt.*;
 
-import static org.charlzk.Services.ApplicationService.setGlobalFont;
+import static org.charlzk.Services.ApplicationServices.setGlobalFont;
 
 public class RegistrationView extends JFrame {
   public RegistrationView() {

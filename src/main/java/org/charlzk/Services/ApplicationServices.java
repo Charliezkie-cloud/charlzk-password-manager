@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Enumeration;
 
-public class ApplicationService {
+public class ApplicationServices {
   private static final String APP_FOLDER_NAME = "Charlzk Password Manager";
 
   public static void setGlobalFont(Font font) {
