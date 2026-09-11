@@ -1,0 +1,47 @@
+package org.charlzk.Views;
+
+import org.charlzk.Components.Layouts.AddPasswordLayout;
+import org.charlzk.Controllers.AddPasswordController;
+import org.charlzk.Events.AddPasswordEvents.AddPasswordWindowListener;
+
+import javax.swing.*;
+import java.awt.*;
+
+import static org.charlzk.Services.ApplicationServices.setGlobalFont;
+
+public class AddPasswordView extends JFrame {
+  public AddPasswordView() {
+    setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+    setTitle("Charlzk Password Manager");
+    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    setResizable(false);
+
+    // ========== START OF COMPONENTS ==========
+
+    JPanel mainContent = new JPanel();
+    mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.X_AXIS));
+    mainContent.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+    mainContent.add(new AddPasswordLayout());
+
+    // ========== END OF COMPONENTS ==========
+
+    AddPasswordController addPasswordController = new AddPasswordController(
+            this,
+
+            AddPasswordLayout.titleField,
+            AddPasswordLayout.usernameField,
+            AddPasswordLayout.urlField,
+            AddPasswordLayout.passwordField,
+
+            AddPasswordLayout.cancelButton,
+            AddPasswordLayout.saveButton
+    );
+
+    addWindowListener(new AddPasswordWindowListener(addPasswordController));
+    add(mainContent);
+    pack();
+    setLocationRelativeTo(null);
+  }
+}

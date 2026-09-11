@@ -15,6 +15,7 @@ public class LoginView extends JFrame {
 
     setTitle("Charlzk Password Manager - Login");
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setResizable(false);
 
     // ========== START OF COMPONENTS ==========
 

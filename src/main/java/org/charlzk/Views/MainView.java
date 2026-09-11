@@ -1,5 +1,6 @@
 package org.charlzk.Views;
 
+import org.charlzk.Components.Layouts.MainTabLayout;
 import org.charlzk.Components.Tabs.FoldersTab;
 import org.charlzk.Components.Tabs.MainTab;
 import org.charlzk.Components.Tabs.PasswordGeneratorTab;
@@ -37,7 +38,20 @@ public class MainView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    MainController mainController = new MainController();
+    MainController mainController = new MainController(
+            this,
+
+            MainTabLayout.foldersTableModel,
+            MainTabLayout.passwordsTableModel,
+
+            MainTabLayout.searchField,
+
+            MainTabLayout.searchOptionComboBox,
+
+            MainTabLayout.searchButton,
+            MainTabLayout.addPasswordButton,
+            MainTabLayout.addFolderButton
+    );
 
     addWindowListener(new MainWindowListener(mainController));
     add(mainContent);

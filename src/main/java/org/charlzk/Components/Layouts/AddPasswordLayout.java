@@ -1,0 +1,73 @@
+package org.charlzk.Components.Layouts;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class AddPasswordLayout extends JPanel {
+  // Field column length
+  private static final int fieldColumnLength = 30;
+
+  // Fields
+  public static final JTextField titleField = new JTextField(fieldColumnLength);
+  public static final JTextField usernameField = new JTextField(fieldColumnLength);
+  public static final JTextField urlField = new JTextField(fieldColumnLength);
+  public static final JTextField passwordField = new JTextField(fieldColumnLength);
+
+  // Buttons
+  public static final JButton cancelButton = new JButton("Cancel");
+  public static final JButton saveButton = new JButton("Save");
+
+  public AddPasswordLayout() {
+    setLayout(new BorderLayout());
+    setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+    JPanel formPanel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+
+    gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+    gbc.insets = new Insets(2, 5, 2, 5);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    // ===== Title row =====
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.weightx = 1.0;
+    gbc.weighty = 0.0;
+    formPanel.add(new JLabel("Title"), gbc);
+
+    gbc.gridy = 1;
+    formPanel.add(titleField, gbc);
+
+    // ===== Username row =====
+    gbc.gridy = 2;
+    formPanel.add(new JLabel("Username"), gbc);
+
+    gbc.gridy = 3;
+    formPanel.add(usernameField, gbc);
+
+    // ===== URL row =====
+    gbc.gridy = 4;
+    formPanel.add(new JLabel("URL"), gbc);
+
+    gbc.gridy = 5;
+    formPanel.add(urlField, gbc);
+
+    // ===== Password row =====
+    gbc.gridy = 6;
+    formPanel.add(new JLabel("Password"), gbc);
+
+    gbc.gridy = 7;
+    formPanel.add(passwordField, gbc);
+
+    // ===== Buttons row =====
+    JPanel buttonsPanel = new JPanel();
+    buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+    buttonsPanel.add(cancelButton);
+    buttonsPanel.add(saveButton);
+
+    gbc.gridy = 8;
+    formPanel.add(buttonsPanel, gbc);
+
+    add(formPanel, BorderLayout.NORTH);
+  }
+}

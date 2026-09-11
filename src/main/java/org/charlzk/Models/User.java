@@ -2,11 +2,22 @@ package org.charlzk.Models;
 
 public class User {
   private final int userId;
+
   private final String email;
   private final String username;
   private final String passwordHash;
+
   private final long createdAt;
   private final long updatedAt;
+
+  public User(int userId, String email, String username, String passwordHash) {
+    this.userId = userId;
+    this.email = email;
+    this.username = username;
+    this.passwordHash = passwordHash;
+    this.createdAt = 0;
+    this.updatedAt = 0;
+  }
 
   public User(int userId, String email, String username, String passwordHash, long createdAt, Long updatedAt) {
     this.userId = userId;

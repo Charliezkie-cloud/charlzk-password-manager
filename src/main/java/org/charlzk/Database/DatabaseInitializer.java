@@ -32,7 +32,7 @@ public class DatabaseInitializer {
           name TEXT NOT NULL,
           created_at INTEGER NOT NULL,
           FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
-        );
+        );      
       """);
 
       // PASSWORDS TABLE
@@ -40,7 +40,7 @@ public class DatabaseInitializer {
         CREATE TABLE IF NOT EXISTS PasswordEntries (
           entry_id INTEGER PRIMARY KEY AUTOINCREMENT,
           folder_id INTEGER,
-          user_id INTEGER NOT NULL,
+          user_id INTEGER NOT NULL,I
 
           title TEXT NOT NULL,
           username TEXT,

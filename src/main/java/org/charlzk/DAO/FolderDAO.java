@@ -5,36 +5,52 @@ import org.charlzk.Models.Folder;
 import org.charlzk.Models.User;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class FolderDAO {
-  public boolean createFolder(int userId, String name) throws SQLException, IOException {
+  // Default folder ID
+  public final int DEFAULT_FOLDER_ID = 1;
+
+  public void createFolderIfNotExists(int userId, String name) throws SQLException, IOException {
+    String sql = "INSERT OR IGNORE INTO Folders (user_id, name, created_at) VALUES (?, ?, ?)";
+
+    Connection conn = DatabaseConnection.getConnection();
+    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+      statement.setInt(1, userId);
+      statement.setString(2, name);
+      statement.setLong(3, System.currentTimeMillis());
+
+      statement.executeUpdate();
+    }
+  }
+
+  public Folder createFolder(int userId, String name) throws SQLException, IOException {
     String sql = "INSERT INTO Folders (user_id, name, created_at) VALUES (?, ?, ?)";
 
     Connection conn = DatabaseConnection.getConnection();
-    PreparedStatement statement = conn.prepareStatement(sql);
+    try (PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+      statement.setInt(1, userId);
+      statement.setString(2, name);
+      statement.setLong(3, System.currentTimeMillis());
+      if (!(statement.executeUpdate() > 0)) return null;
 
-    statement.setInt(1, userId);
-    statement.setString(2, name);
-    statement.setLong(3, System.currentTimeMillis());
+      try (ResultSet rs = statement.getGeneratedKeys()) {
+        if (!rs.next()) return null;
 
-    return statement.executeUpdate() > 0;
+        int folderId = rs.getInt(1);
+        return getFolderById(folderId);
+      }
+    }
   }
 
-  public Folder getFolderByUserId(int userId, int folderId) throws SQLException, IOException {
+  public Folder getFolderById(int folderId) throws SQLException, IOException {
     String sql = """
         SELECT
-            -- Users
+            -- Users (owner info only)
             u.user_id,
             u.email,
             u.username,
-            u.password_hash,
-            u.created_at AS users_created_at,
-            u.updated_at AS users_updated_at,
             
             -- Folders
             f.folder_id,
@@ -42,77 +58,70 @@ public class FolderDAO {
             f.created_at AS folders_created_at
         FROM Folders f
         INNER JOIN Users u ON u.user_id = f.user_id
-        WHERE f.user_id = ? AND f.folder_id = ?
+        WHERE f.folder_id = ?
         LIMIT 1;
     """;
 
     Connection conn = DatabaseConnection.getConnection();
-    PreparedStatement statement = conn.prepareStatement(sql);
+    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+      statement.setInt(1, folderId);
 
-    statement.setInt(1, userId);
-    statement.setInt(2, folderId);
+      try (ResultSet rs = statement.executeQuery()) {
+        if (rs.next()) {
+          int userIdRow = rs.getInt("user_id");
+          String email = rs.getString("email");
+          String username = rs.getString("username");
 
-    ResultSet rs = statement.executeQuery();
+          User user = new User(userIdRow, email, username, null);
 
-    if (rs.next()) {
-      int userIdRow = rs.getInt("user_id");
-      String email = rs.getString("email");
-      String username = rs.getString("username");
-      String passwordHash = rs.getString("password_hash");
-      long createdAt = rs.getLong("users_created_at");
-      long updatedAt = rs.getLong("users_updated_at");
+          int folderIdRow = rs.getInt("folder_id");
+          String name = rs.getString("name");
+          long folderCreatedAt = rs.getLong("folders_created_at");
 
-      User user = new User(userIdRow, email, username, passwordHash, createdAt, updatedAt);
-
-      int folderIdRow = rs.getInt("folder_id");
-      String name = rs.getString("name");
-      long folderCreatedAt = rs.getLong("folders_created_at");
-
-      return new Folder(folderIdRow, userId, name, folderCreatedAt, user);
-    } else {
-      return null;
+          return new Folder(folderIdRow, userIdRow, name, folderCreatedAt, user);
+        } else {
+          return null;
+        }
+      }
     }
   }
 
-  public Folder updateFolder(int userId, int folderId, String name) throws SQLException, IOException {
-    String sql = "UPDATE FROM Folders SET name = ? WHERE user_id = ? AND folder_id = ?;";
+  public Folder updateFolder(int folderId, String name) throws SQLException, IOException {
+    String sql = "UPDATE Folders SET name = ? WHERE folder_id = ?;";
 
     Connection conn = DatabaseConnection.getConnection();
-    PreparedStatement statement = conn.prepareStatement(sql);
+    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+      statement.setString(1, name);
+      statement.setInt(2, folderId);
 
-    statement.setInt(1, userId);
-    statement.setInt(2, folderId);
+      statement.executeUpdate();
+    }
 
-    statement.executeQuery();
-
-    return getFolderByUserId(userId, folderId);
+    return getFolderById(folderId);
   }
 
-  public Folder deleteFolder(int userId, int folderId) throws SQLException, IOException {
-    String sql = "DELETE FROM Folders WHERE user_id = ? AND folder_id = ?;";
+  public Folder deleteFolder(int folderId) throws SQLException, IOException {
+    String sql = "DELETE FROM Folders WHERE folder_id = ?;";
 
     Connection conn = DatabaseConnection.getConnection();
-    PreparedStatement statement = conn.prepareStatement(sql);
+    Folder folder = getFolderById(folderId);
 
-    statement.setInt(1, userId);
-    statement.setInt(2, folderId);
+    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+      statement.setInt(1, folderId);
+      statement.executeUpdate();
+    }
 
-    statement.executeQuery();
-
-    return getFolderByUserId(userId, folderId);
+    return folder;
   }
 
   public ArrayList<Folder> getAllUserFolders(int userId) throws SQLException, IOException {
     ArrayList<Folder> folders = new ArrayList<>();
     String sql = """
         SELECT
-            -- Users
+            -- Users (owner info only)
             u.user_id,
             u.email,
             u.username,
-            u.password_hash,
-            u.created_at AS users_created_at,
-            u.updated_at AS users_updated_at,
             
             -- Folders
             f.folder_id,
@@ -120,36 +129,30 @@ public class FolderDAO {
             f.created_at AS folders_created_at
         FROM Folders f
         INNER JOIN Users u ON u.user_id = f.user_id
-        WHERE f.user_id = ?
-        LIMIT 1;
+        WHERE f.user_id = ?;
     """;
 
     Connection conn = DatabaseConnection.getConnection();
-    PreparedStatement statement = conn.prepareStatement(sql);
+    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+      statement.setInt(1, userId);
 
-    statement.setInt(1, userId);
+      try (ResultSet rs = statement.executeQuery()) {
+        while (rs.next()) {
+          int userIdRow = rs.getInt("user_id");
+          String email = rs.getString("email");
+          String username = rs.getString("username");
 
-    ResultSet rs = statement.executeQuery();
+          User user = new User(userIdRow, email, username, null);
 
-    if (rs.next()) {
-      int userIdRow = rs.getInt("user_id");
-      String email = rs.getString("email");
-      String username = rs.getString("username");
-      String passwordHash = rs.getString("password_hash");
-      long createdAt = rs.getLong("users_created_at");
-      long updatedAt = rs.getLong("users_updated_at");
+          int folderIdRow = rs.getInt("folder_id");
+          String name = rs.getString("name");
+          long folderCreatedAt = rs.getLong("folders_created_at");
 
-      User user = new User(userIdRow, email, username, passwordHash, createdAt, updatedAt);
-
-      int folderIdRow = rs.getInt("folder_id");
-      String name = rs.getString("name");
-      long folderCreatedAt = rs.getLong("folders_created_at");
-
-      folders.add(new Folder(folderIdRow, userId, name, folderCreatedAt, user));
-
-      return folders;
-    } else {
-      return folders;
+          folders.add(new Folder(folderIdRow, userId, name, folderCreatedAt, user));
+        }
+      }
     }
+
+    return folders;
   }
 }
