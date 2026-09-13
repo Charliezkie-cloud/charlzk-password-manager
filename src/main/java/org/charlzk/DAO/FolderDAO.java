@@ -6,7 +6,7 @@ import org.charlzk.Models.User;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FolderDAO {
   // Default folder ID
@@ -114,8 +114,8 @@ public class FolderDAO {
     return folder;
   }
 
-  public ArrayList<Folder> getAllUserFolders(int userId) throws SQLException, IOException {
-    ArrayList<Folder> folders = new ArrayList<>();
+  public HashMap<Integer, Folder> getAllUserFolders(int userId) throws SQLException, IOException {
+    HashMap<Integer, Folder> folders = new HashMap<>();
     String sql = """
         SELECT
             -- Users (owner info only)
@@ -148,7 +148,7 @@ public class FolderDAO {
           String name = rs.getString("name");
           long folderCreatedAt = rs.getLong("folders_created_at");
 
-          folders.add(new Folder(folderIdRow, userId, name, folderCreatedAt, user));
+          folders.put(folderIdRow, new Folder(folderIdRow, userId, name, folderCreatedAt, user));
         }
       }
     }

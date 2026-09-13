@@ -7,11 +7,14 @@ import java.awt.*;
 public class MainTabLayout extends JPanel {
 
   // Table data model
-  private static final String[] foldersTableColumns = {"Folder Name", "Last Updated", "Date Updated"};
+  private static final String[] foldersTableColumns = {"Folder ID", "Folder Name", "Created At"};
   public static final DefaultTableModel foldersTableModel = new DefaultTableModel(foldersTableColumns, 0);
+  public static final JTable foldersTable = new JTable(foldersTableModel);
 
-  private static final String[] passwordsTableColumns = {"Title", "Username", "Url", "Last Updated", "Date Updated"};
+  private static final String[] passwordsTableColumns = {"Password ID", "Title", "Url", "Created At", "Last Updated"};
   public static final DefaultTableModel passwordsTableModel = new DefaultTableModel(passwordsTableColumns, 0);
+  public static final JTable passwordsTable = new JTable(passwordsTableModel);
+
 
   // Fields
   public static final JTextField searchField = new JTextField();
@@ -40,11 +43,11 @@ public class MainTabLayout extends JPanel {
     searchPanel.add(searchButtonsPanel, BorderLayout.EAST);
 
     // ========== FOLDERS TABLE ==========
-    JTable foldersTable = new JTable(foldersTableModel);
+    foldersTable.removeColumn(foldersTable.getColumnModel().getColumn(0));
     JScrollPane foldersScrollPane = new JScrollPane(foldersTable);
 
     // ========== PASSWORDS TABLE ==========
-    JTable passwordsTable = new JTable(passwordsTableModel);
+    passwordsTable.removeColumn(passwordsTable.getColumnModel().getColumn(0));
     JScrollPane passwordsScrollPane = new JScrollPane(passwordsTable);
 
     // ========== CENTER PANEL ==========

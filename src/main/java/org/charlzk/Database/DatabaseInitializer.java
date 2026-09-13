@@ -31,8 +31,9 @@ public class DatabaseInitializer {
           user_id INTEGER NOT NULL,
           name TEXT NOT NULL,
           created_at INTEGER NOT NULL,
-          FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
-        );      
+          FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+          UNIQUE (user_id, name)
+        );
       """);
 
       // PASSWORDS TABLE
@@ -40,12 +41,13 @@ public class DatabaseInitializer {
         CREATE TABLE IF NOT EXISTS PasswordEntries (
           entry_id INTEGER PRIMARY KEY AUTOINCREMENT,
           folder_id INTEGER,
-          user_id INTEGER NOT NULL,I
+          user_id INTEGER NOT NULL,
 
           title TEXT NOT NULL,
           username TEXT,
-          password TEXT NOT NULL,
+          password TEXT,
           url TEXT,
+          note TEXT,
 
           created_at INTEGER NOT NULL,
           updated_at INTEGER,

@@ -5,7 +5,6 @@ import org.charlzk.Models.User;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class UserDAO {
   public boolean createUser(String username, String email, String passwordHash) throws SQLException, IOException {
@@ -99,28 +98,5 @@ public class UserDAO {
     }
 
     return deletedUser;
-  }
-
-  public ArrayList<User> getAllUsers() throws SQLException, IOException {
-    ArrayList<User> users = new ArrayList<>();
-    String sql = "SELECT * FROM Users;";
-
-    Connection conn = DatabaseConnection.getConnection();
-    try (Statement statement = conn.createStatement();
-         ResultSet rs = statement.executeQuery(sql)) {
-
-      while (rs.next()) {
-        int userIdCol = rs.getInt("user_id");
-        String username = rs.getString("username");
-        String emailRow = rs.getString("email");
-        String passwordHash = rs.getString("password_hash");
-        long createdAt = rs.getLong("created_at");
-        long updatedAt = rs.getLong("updated_at");
-
-        users.add(new User(userIdCol, username, emailRow, passwordHash, createdAt, updatedAt));
-      }
-    }
-
-    return users;
   }
 }

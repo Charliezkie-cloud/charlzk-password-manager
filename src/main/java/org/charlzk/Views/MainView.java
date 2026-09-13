@@ -44,6 +44,9 @@ public class MainView extends JFrame {
             MainTabLayout.foldersTableModel,
             MainTabLayout.passwordsTableModel,
 
+            MainTabLayout.foldersTable,
+            MainTabLayout.passwordsTable,
+
             MainTabLayout.searchField,
 
             MainTabLayout.searchOptionComboBox,

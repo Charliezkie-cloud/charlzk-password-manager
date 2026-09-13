@@ -2,6 +2,7 @@ package org.charlzk.Views;
 
 import org.charlzk.Components.Layouts.AddPasswordLayout;
 import org.charlzk.Controllers.AddPasswordController;
+import org.charlzk.Controllers.MainController;
 import org.charlzk.Events.AddPasswordEvents.AddPasswordWindowListener;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 import static org.charlzk.Services.ApplicationServices.setGlobalFont;
 
 public class AddPasswordView extends JFrame {
-  public AddPasswordView() {
+  public AddPasswordView(MainController mainController) {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
     setTitle("Charlzk Password Manager");
@@ -30,10 +31,15 @@ public class AddPasswordView extends JFrame {
     AddPasswordController addPasswordController = new AddPasswordController(
             this,
 
+            mainController,
+
             AddPasswordLayout.titleField,
             AddPasswordLayout.usernameField,
             AddPasswordLayout.urlField,
             AddPasswordLayout.passwordField,
+
+            AddPasswordLayout.folderComboBox,
+            AddPasswordLayout.folderComboBoxModel,
 
             AddPasswordLayout.cancelButton,
             AddPasswordLayout.saveButton

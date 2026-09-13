@@ -9,6 +9,7 @@ public class PasswordEntry {
   private final String username;
   private final String password;
   private final String url;
+  private final String note;
 
   private final long createdAt;
   private final long updatedAt;
@@ -26,6 +27,7 @@ public class PasswordEntry {
           String username,
           String password,
           String url,
+          String note,
 
           long createdAt,
           long updatedAt,
@@ -41,6 +43,7 @@ public class PasswordEntry {
     this.username = username;
     this.password = password;
     this.url = url;
+    this.note = note;
 
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;

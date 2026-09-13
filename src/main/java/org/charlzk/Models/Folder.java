@@ -1,5 +1,7 @@
 package org.charlzk.Models;
 
+import org.charlzk.Services.TimeServices;
+
 public class Folder {
   private final int folderId;
   private final int userId;
@@ -21,5 +23,9 @@ public class Folder {
   public int getUserId() { return userId; }
   public String getName() { return name; }
   public long getCreatedAt() { return createdAt; }
+  public String getFormattedCreatedAt() { return TimeServices.formatTimeMillis(getCreatedAt()); }
   public User getUser() { return user; }
+
+  @Override
+  public String toString() { return name; }
 }
