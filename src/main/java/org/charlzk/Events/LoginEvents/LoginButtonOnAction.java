@@ -34,7 +34,7 @@ public class LoginButtonOnAction implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    String email = emailField.getText();
+    String email = emailField.getText().trim();
     char[] passwordChar = passwordField.getPassword();
     String password = new String(passwordChar);
 

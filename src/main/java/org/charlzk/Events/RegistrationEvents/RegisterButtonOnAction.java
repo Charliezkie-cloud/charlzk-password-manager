@@ -47,8 +47,8 @@ public class RegisterButtonOnAction implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     if (!validateForm()) return;
 
-    String username = usernameField.getText();
-    String email = emailField.getText();
+    String username = usernameField.getText().trim();
+    String email = emailField.getText().trim();
     char[] passwordChar = passwordField.getPassword();
     String password = new String(passwordChar);
 

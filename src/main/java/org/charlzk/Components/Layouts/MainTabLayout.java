@@ -8,13 +8,22 @@ public class MainTabLayout extends JPanel {
 
   // Table data model
   private static final String[] foldersTableColumns = {"Folder ID", "Folder Name", "Created At"};
-  public static final DefaultTableModel foldersTableModel = new DefaultTableModel(foldersTableColumns, 0);
+  public static final DefaultTableModel foldersTableModel = new DefaultTableModel(foldersTableColumns, 0) {
+    @Override
+    public boolean isCellEditable(int row, int column) {
+      return false;
+    }
+  };
   public static final JTable foldersTable = new JTable(foldersTableModel);
 
-  private static final String[] passwordsTableColumns = {"Password ID", "Title", "Url", "Created At", "Last Updated"};
-  public static final DefaultTableModel passwordsTableModel = new DefaultTableModel(passwordsTableColumns, 0);
+  private static final String[] passwordsTableColumns = {"Password ID", "Name", "Url", "Created At", "Last Updated"};
+  public static final DefaultTableModel passwordsTableModel = new DefaultTableModel(passwordsTableColumns, 0) {
+    @Override
+    public boolean isCellEditable(int row, int column) {
+      return false;
+    }
+  };
   public static final JTable passwordsTable = new JTable(passwordsTableModel);
-
 
   // Fields
   public static final JTextField searchField = new JTextField();

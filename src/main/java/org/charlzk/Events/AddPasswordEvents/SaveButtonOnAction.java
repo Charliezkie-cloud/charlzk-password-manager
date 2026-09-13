@@ -61,10 +61,10 @@ public class SaveButtonOnAction implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     if (!validateForm()) return;
 
-    String title = titleField.getText();
-    String username = usernameField.getText();
-    String url = urlField.getText();
-    String password = passwordField.getText();
+    String title = titleField.getText().trim();
+    String username = usernameField.getText().trim();
+    String url = urlField.getText().trim();
+    String password = passwordField.getText().trim();
 
     try {
       Folder selectedFolder = (Folder) folderComboBox.getSelectedItem();
@@ -94,10 +94,22 @@ public class SaveButtonOnAction implements ActionListener {
   }
 
   private boolean validateForm() {
-    String url = urlField.getText();
+    String title = titleField.getText().trim();
+    String url = urlField.getText().trim();
+
+    if (title.isEmpty()) {
+      CustomJOptionPane.showErrorMessageDialog("Name is Required.", "Validation Message");
+      return false;
+    }
 
     if (url.isEmpty()) {
       CustomJOptionPane.showErrorMessageDialog("URL is Required.", "Validation Message");
+      return false;
+    }
+
+    String urlRegex = "^https?://$|^(https?://)?([\\w-]+\\.)+[a-zA-Z]{2,}(:\\d{1,5})?(/\\S*)?$";
+    if (!url.matches(urlRegex)) {
+      CustomJOptionPane.showErrorMessageDialog("Please enter a valid URL.", "Validation Message");
       return false;
     }
 
