@@ -8,11 +8,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class RegistrationWindowListener extends WindowAdapter {
-  private final JFrame registrationView;
   private final RegistrationController registrationController;
 
-  public RegistrationWindowListener(JFrame registrationView, RegistrationController registrationController) {
-    this.registrationView = registrationView;
+  public RegistrationWindowListener(RegistrationController registrationController) {
     this.registrationController = registrationController;
   }
 
@@ -20,10 +18,15 @@ public class RegistrationWindowListener extends WindowAdapter {
   public void windowClosed(WindowEvent e) {
     super.windowClosed(e);
 
-    registrationView.dispose();
+    registrationController.getRegistrationView().dispose();
     registrationController.close();
 
-    LoginView loginView = new LoginView();
-    loginView.setVisible(true);
+    new LoginView().setVisible(true);
+  }
+
+  @Override
+  public void windowOpened(WindowEvent e) {
+    super.windowOpened(e);
+    registrationController.clearFields();
   }
 }

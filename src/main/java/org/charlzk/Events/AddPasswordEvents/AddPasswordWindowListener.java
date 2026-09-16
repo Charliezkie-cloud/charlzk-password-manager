@@ -38,8 +38,10 @@ public class AddPasswordWindowListener extends WindowAdapter {
     super.windowOpened(e);
 
     try {
-      HashMap<Integer, Folder> result = folderDAO.getAllUserFolders(user.getUserId());
+      addPasswordController.clearFields();
+      addPasswordController.clearFolderComboBoxItem();
 
+      HashMap<Integer, Folder> result = folderDAO.getAllUserFolders(user.getUserId());
       for (Folder item : result.values())
         addPasswordController.addFolderComboBoxItem(item);
     } catch (SQLException | IOException ex) {

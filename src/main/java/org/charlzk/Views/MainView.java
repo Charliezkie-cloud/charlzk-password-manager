@@ -6,7 +6,6 @@ import org.charlzk.Components.Tabs.MainTab;
 import org.charlzk.Components.Tabs.PasswordGeneratorTab;
 import org.charlzk.Components.Tabs.SettingsTab;
 import org.charlzk.Controllers.MainController;
-import org.charlzk.Events.MainEvents.MainWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +37,7 @@ public class MainView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    MainController mainController = new MainController(
+    new MainController(
             this,
 
             MainTabLayout.foldersTableModel,
@@ -46,6 +45,10 @@ public class MainView extends JFrame {
 
             MainTabLayout.foldersTable,
             MainTabLayout.passwordsTable,
+
+            MainTabLayout.passwordsTableContextMenu,
+            MainTabLayout.updatePasswordMenuItem,
+            MainTabLayout.deletePasswordMenuItem,
 
             MainTabLayout.searchField,
 
@@ -56,7 +59,6 @@ public class MainView extends JFrame {
             MainTabLayout.addFolderButton
     );
 
-    addWindowListener(new MainWindowListener(mainController));
     add(mainContent);
     pack();
     setLocationRelativeTo(null);

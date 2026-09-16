@@ -1,15 +1,22 @@
 package org.charlzk.Controllers;
 
-import org.charlzk.Events.AddPasswordEvents.AddPasswordWindowListener;
-import org.charlzk.Events.AddPasswordEvents.CancelButtonOnAction;
-import org.charlzk.Events.AddPasswordEvents.SaveButtonOnAction;
+import org.charlzk.Events.EditPasswordEvents.CancelButtonOnAction;
+import org.charlzk.Events.EditPasswordEvents.EditPasswordWindowListener;
+import org.charlzk.Events.EditPasswordEvents.SaveButtonOnAction;
 import org.charlzk.Models.Folder;
+import org.charlzk.Models.PasswordEntry;
 
 import javax.swing.*;
 
-public class AddPasswordController {
-  // Views
-  private final JFrame addPasswordView;
+public class EditPasswordController {
+  // View
+  private final JFrame editPasswordView;
+
+  // Current Password Entry
+  private PasswordEntry currentPasswordEntry;
+
+  // Controller
+  private final MainController mainController;
 
   // Fields
   private final JTextField titleField;
@@ -21,8 +28,8 @@ public class AddPasswordController {
   private final JTextArea noteTextArea;
 
   // ComboBox
-  private final JComboBox<Folder> folderComboBox;
   private final DefaultComboBoxModel<Folder> folderComboBoxModel;
+  private final JComboBox<Folder> folderComboBox;
 
   // Buttons
   private final JButton cancelButton;
@@ -31,11 +38,11 @@ public class AddPasswordController {
   // Events
   private final CancelButtonOnAction cancelButtonOnAction;
   private final SaveButtonOnAction saveButtonOnAction;
-  private final AddPasswordWindowListener addPasswordWindowListener;
+  private final EditPasswordWindowListener editPasswordWindowListener;
 
-  public AddPasswordController(
+  public EditPasswordController(
           // View
-          JFrame addPasswordView,
+          JFrame editPasswordView,
 
           // Controller
           MainController mainController,
@@ -49,14 +56,16 @@ public class AddPasswordController {
           JTextArea noteTextArea,
 
           // ComboBox
-          JComboBox<Folder> folderComboBox,
           DefaultComboBoxModel<Folder> folderComboBoxModel,
+          JComboBox<Folder> folderComboBox,
 
           // Buttons
           JButton cancelButton,
           JButton saveButton
   ) {
-    this.addPasswordView = addPasswordView;
+    this.editPasswordView = editPasswordView;
+
+    this.mainController = mainController;
 
     this.titleField = titleField;
     this.usernameField = usernameField;
@@ -71,17 +80,17 @@ public class AddPasswordController {
     this.cancelButton = cancelButton;
     this.saveButton = saveButton;
 
-    this.addPasswordWindowListener = new AddPasswordWindowListener(this);
-    this.cancelButtonOnAction = new CancelButtonOnAction(addPasswordView);
-    this.saveButtonOnAction = new SaveButtonOnAction(addPasswordView, mainController, this);
+    this.cancelButtonOnAction = new CancelButtonOnAction(editPasswordView);
+    this.saveButtonOnAction = new SaveButtonOnAction(this);
+    this.editPasswordWindowListener = new EditPasswordWindowListener(this);
 
-    addPasswordView.addWindowListener(addPasswordWindowListener);
+    editPasswordView.addWindowListener(editPasswordWindowListener);
     cancelButton.addActionListener(cancelButtonOnAction);
     saveButton.addActionListener(saveButtonOnAction);
   }
 
   public void close() {
-    addPasswordView.removeWindowListener(addPasswordWindowListener);
+    editPasswordView.removeWindowListener(editPasswordWindowListener);
     cancelButton.removeActionListener(cancelButtonOnAction);
     saveButton.removeActionListener(saveButtonOnAction);
   }
@@ -92,20 +101,17 @@ public class AddPasswordController {
   public JTextField getUrlField() { return urlField; }
   public JTextField getPasswordField() { return passwordField; }
   public JTextArea getNoteTextArea() { return noteTextArea; }
+  public DefaultComboBoxModel<Folder> getFolderComboBoxModel() { return folderComboBoxModel; }
   public JComboBox<Folder> getFolderComboBox() { return folderComboBox; }
+  public PasswordEntry getCurrentPasswordEntry() { return currentPasswordEntry; }
+  public JFrame getEditPasswordView() { return editPasswordView; }
+  public MainController getMainController() { return mainController; }
+
+  // Setters
+  public void setCurrentPasswordEntry(PasswordEntry value) { currentPasswordEntry = value; }
 
   // Utils
-  public void addFolderComboBoxItem(Folder folder) { folderComboBoxModel.addElement(folder); }
-
-  public void clearFolderComboBoxItem() {folderComboBoxModel.removeAllElements(); }
-
-  public void clearFields() {
-    clearFolderComboBoxItem();
-    urlField.setText("https://example.com/");
-    titleField.setText("");
-    usernameField.setText("");
-    passwordField.setText("");
-    noteTextArea.setText("");
-    noteTextArea.setText("");
+  public void addFolderComboBoxItem(Folder folder) {
+    folderComboBoxModel.addElement(folder);
   }
 }

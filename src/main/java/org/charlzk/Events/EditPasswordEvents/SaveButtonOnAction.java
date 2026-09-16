@@ -1,8 +1,7 @@
-package org.charlzk.Events.AddPasswordEvents;
+package org.charlzk.Events.EditPasswordEvents;
 
 import org.charlzk.Components.CustomJOptionPane;
-import org.charlzk.Controllers.AddPasswordController;
-import org.charlzk.Controllers.MainController;
+import org.charlzk.Controllers.EditPasswordController;
 import org.charlzk.DAO.PasswordEntryDAO;
 import org.charlzk.Models.Folder;
 import org.charlzk.Models.PasswordEntry;
@@ -18,43 +17,33 @@ public class SaveButtonOnAction implements ActionListener {
   // DAO
   private final PasswordEntryDAO passwordEntryDAO = new PasswordEntryDAO();
 
-  // Views
-  private final JFrame addPasswordView;
-
   // Controller
-  private final AddPasswordController addPasswordController;
-  private final MainController mainController;
+  private final EditPasswordController editPasswordController;
 
-  public SaveButtonOnAction(
-          JFrame addPasswordView,
-          MainController mainController,
-          AddPasswordController addPasswordController
-  ) {
-    this.addPasswordView = addPasswordView;
-
-    this.mainController = mainController;
-    this.addPasswordController = addPasswordController;
+  public SaveButtonOnAction(EditPasswordController editPasswordController) {
+    this.editPasswordController = editPasswordController;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     if (!validateForm()) return;
 
-    String title = addPasswordController.getTitleField().getText().trim();
-    String username = addPasswordController.getUsernameField().getText().trim();
-    String url = addPasswordController.getUrlField().getText().trim();
-    String password = addPasswordController.getPasswordField().getText().trim();
-    String note = addPasswordController.getNoteTextArea().getText().trim();
+    String title = editPasswordController.getTitleField().getText().trim();
+    String username = editPasswordController.getUsernameField().getText().trim();
+    String url = editPasswordController.getUrlField().getText().trim();
+    String password = editPasswordController.getPasswordField().getText().trim();
+    String note = editPasswordController.getNoteTextArea().getText().trim();
 
     try {
-      Folder selectedFolder = (Folder) addPasswordController.getFolderComboBox().getSelectedItem();
+      Folder selectedFolder = (Folder) editPasswordController.getFolderComboBoxModel().getSelectedItem();
       if (selectedFolder == null) {
         CustomJOptionPane.showErrorMessageDialog("Please select a Folder.", "Validation Message");
         return;
       }
 
-      PasswordEntry passwordEntry = passwordEntryDAO.createPasswordEntry(
-              SessionManager.getInstance().getCurrentUserId(),
+      int currentPasswordEntryId = editPasswordController.getCurrentPasswordEntry().getEntryId();
+      PasswordEntry passwordEntry = passwordEntryDAO.updatePasswordEntry(
+              currentPasswordEntryId,
               selectedFolder.getFolderId(),
               title,
               username,
@@ -66,18 +55,23 @@ public class SaveButtonOnAction implements ActionListener {
       SessionManager.getInstance()
               .getUserPasswordEntries()
               .put(passwordEntry.getEntryId(), passwordEntry);
-      mainController.refreshTables();
-      addPasswordController.close();
-      addPasswordView.dispose();
-      CustomJOptionPane.showSuccessMessageDialog("Password Added!", "Success");
+      editPasswordController.getMainController().refreshTables();
+      editPasswordController.close();
+      editPasswordController.getEditPasswordView().dispose();
+      CustomJOptionPane.showSuccessMessageDialog("Password Updated!", "Success");
     } catch (SQLException | IOException ex) {
       CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
     }
   }
 
   private boolean validateForm() {
-    String title = addPasswordController.getTitleField().getText().trim();
-    String url = addPasswordController.getUrlField().getText().trim();
+    String title = editPasswordController.getTitleField().getText().trim();
+    String url = editPasswordController.getUrlField().getText().trim();
+
+    if (editPasswordController.getCurrentPasswordEntry() == null) {
+      CustomJOptionPane.showErrorMessageDialog("Please select a Password.", "Validation Message");
+      return false;
+    }
 
     if (title.isEmpty()) {
       CustomJOptionPane.showErrorMessageDialog("Name is Required.", "Validation Message");

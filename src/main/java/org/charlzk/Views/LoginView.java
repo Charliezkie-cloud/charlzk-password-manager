@@ -2,7 +2,6 @@ package org.charlzk.Views;
 
 import org.charlzk.Components.Layouts.LoginLayout;
 import org.charlzk.Controllers.LoginController;
-import org.charlzk.Events.LoginEvents.LoginWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +26,7 @@ public class LoginView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    LoginController loginController = new LoginController(
+    new LoginController(
             // View
             this,
 
@@ -39,8 +38,6 @@ public class LoginView extends JFrame {
             LoginLayout.registerPane,
             LoginLayout.loginButton
     );
-
-    addWindowListener(new LoginWindowListener(loginController));
     add(mainContent);
     pack();
     setLocationRelativeTo(null);

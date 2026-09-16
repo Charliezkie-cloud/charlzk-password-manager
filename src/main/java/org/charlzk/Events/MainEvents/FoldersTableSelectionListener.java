@@ -17,6 +17,7 @@ public class FoldersTableSelectionListener implements ListSelectionListener {
   // DAO's
   private final PasswordEntryDAO passwordEntryDAO = new PasswordEntryDAO();
 
+  // Controller
   private final MainController mainController;
 
   public FoldersTableSelectionListener(MainController mainController) {
@@ -41,7 +42,6 @@ public class FoldersTableSelectionListener implements ListSelectionListener {
         mainController.getPasswordsTableModel().addRow(new Object[]{
                 item.getEntryId(),
                 item.getTitle(),
-                item.getUsername(),
                 item.getUrl(),
                 TimeServices.formatTimeMillis(item.getCreatedAt()),
                 TimeServices.formatTimeMillis(item.getUpdatedAt())

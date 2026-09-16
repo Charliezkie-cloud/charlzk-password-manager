@@ -17,4 +17,10 @@ public class LoginWindowListener extends WindowAdapter {
     super.windowClosed(e);
     loginController.close();
   }
+
+  @Override
+  public void windowOpened(WindowEvent e) {
+    super.windowOpened(e);
+    loginController.clearFields();
+  }
 }

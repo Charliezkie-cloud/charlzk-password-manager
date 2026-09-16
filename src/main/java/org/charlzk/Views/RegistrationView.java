@@ -2,7 +2,6 @@ package org.charlzk.Views;
 
 import org.charlzk.Components.Layouts.RegistrationLayout;
 import org.charlzk.Controllers.RegistrationController;
-import org.charlzk.Events.RegistrationEvents.RegistrationWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +26,7 @@ public class RegistrationView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    RegistrationController registrationController = new RegistrationController(
+    new RegistrationController(
             // View
             this,
 
@@ -46,7 +45,6 @@ public class RegistrationView extends JFrame {
             RegistrationLayout.registerButton
     );
 
-    addWindowListener(new RegistrationWindowListener(this, registrationController));
     add(mainContent);
     pack();
     setLocationRelativeTo(null);

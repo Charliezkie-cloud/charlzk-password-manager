@@ -14,7 +14,7 @@ public class AddPasswordView extends JFrame {
   public AddPasswordView(MainController mainController) {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-    setTitle("Charlzk Password Manager");
+    setTitle("Charlzk Password Manager - Add Password");
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setResizable(false);
 
@@ -28,7 +28,7 @@ public class AddPasswordView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    AddPasswordController addPasswordController = new AddPasswordController(
+    new AddPasswordController(
             this,
 
             mainController,
@@ -38,6 +38,8 @@ public class AddPasswordView extends JFrame {
             AddPasswordLayout.urlField,
             AddPasswordLayout.passwordField,
 
+            AddPasswordLayout.noteTextArea,
+
             AddPasswordLayout.folderComboBox,
             AddPasswordLayout.folderComboBoxModel,
 
@@ -45,7 +47,6 @@ public class AddPasswordView extends JFrame {
             AddPasswordLayout.saveButton
     );
 
-    addWindowListener(new AddPasswordWindowListener(addPasswordController));
     add(mainContent);
     pack();
     setLocationRelativeTo(null);

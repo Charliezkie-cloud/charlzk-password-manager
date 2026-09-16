@@ -1,6 +1,7 @@
 package org.charlzk.Events.LoginEvents;
 
 import org.charlzk.Components.CustomJOptionPane;
+import org.charlzk.Controllers.LoginController;
 import org.charlzk.Services.AuthServices;
 import org.charlzk.Views.MainView;
 
@@ -11,31 +12,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginButtonOnAction implements ActionListener {
-  // Views
-  private final JFrame loginView;
+  // Controller
+  private final LoginController loginController;
 
-  // Fields
-  private final JTextField emailField;
-  private final JPasswordField passwordField;
-
-  public LoginButtonOnAction(
-          // View
-          JFrame loginView,
-
-          // Fields
-          JTextField emailField,
-          JPasswordField passwordField
-  ) {
-    this.loginView = loginView;
-
-    this.emailField = emailField;
-    this.passwordField = passwordField;
+  public LoginButtonOnAction(LoginController loginController) {
+    this.loginController = loginController;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    String email = emailField.getText().trim();
-    char[] passwordChar = passwordField.getPassword();
+    String email = loginController.getEmailField().getText().trim();
+    char[] passwordChar = loginController.getPasswordField().getPassword();
     String password = new String(passwordChar);
 
     if (!validateForm(email, password))
@@ -45,7 +32,8 @@ public class LoginButtonOnAction implements ActionListener {
       if (!AuthServices.login(email, password))
         return;
 
-      loginView.dispose();
+      loginController.close();
+      loginController.getLoginView().dispose();
       MainView mainView = new MainView();
       mainView.setVisible(true);
     } catch (SQLException | IOException ex) {

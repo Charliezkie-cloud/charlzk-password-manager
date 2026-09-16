@@ -1,6 +1,7 @@
 package org.charlzk.Events.RegistrationEvents;
 
 import org.charlzk.Components.CustomJOptionPane;
+import org.charlzk.Controllers.RegistrationController;
 import org.charlzk.Services.AuthServices;
 
 import javax.swing.*;
@@ -10,46 +11,19 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class RegisterButtonOnAction implements ActionListener {
-  // View
-  private final JFrame registrationView;
+  private final RegistrationController registrationController;
 
-  // Fields
-  private final JTextField usernameField;
-  private final JTextField emailField;
-  private final JPasswordField passwordField;
-  private final JPasswordField passwordConfirmationField;
-
-  // Checkbox
-  private final JCheckBox agreementCheckbox;
-
-  public RegisterButtonOnAction(
-          // View
-          JFrame registrationView,
-
-          // Fields
-          JTextField usernameField,
-          JTextField emailField,
-          JPasswordField passwordField,
-          JPasswordField passwordConfirmationField,
-
-          // Checkbox
-          JCheckBox agreementCheckbox
-  ) {
-    this.registrationView = registrationView;
-    this.usernameField = usernameField;
-    this.emailField = emailField;
-    this.passwordField = passwordField;
-    this.passwordConfirmationField = passwordConfirmationField;
-    this.agreementCheckbox = agreementCheckbox;
+  public RegisterButtonOnAction(RegistrationController registrationController) {
+    this.registrationController = registrationController;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     if (!validateForm()) return;
 
-    String username = usernameField.getText().trim();
-    String email = emailField.getText().trim();
-    char[] passwordChar = passwordField.getPassword();
+    String username = registrationController.getUsernameField().getText().trim();
+    String email = registrationController.getEmailField().getText().trim();
+    char[] passwordChar = registrationController.getPasswordField().getPassword();
     String password = new String(passwordChar);
 
     try {
@@ -57,17 +31,17 @@ public class RegisterButtonOnAction implements ActionListener {
         return;
 
       CustomJOptionPane.showSuccessMessageDialog("Account registered!", "Registration Success");
-      registrationView.dispose();
+      registrationController.getRegistrationView().dispose();
     } catch (SQLException | IOException ex) {
       CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
     }
   }
 
   private boolean validateForm() {
-    String username = usernameField.getText().trim();
-    String email = emailField.getText().trim();
-    char[] password = passwordField.getPassword();
-    char[] passwordConfirmation = passwordConfirmationField.getPassword();
+    String username = registrationController.getUsernameField().getText().trim();
+    String email = registrationController.getEmailField().getText().trim();
+    char[] password = registrationController.getPasswordField().getPassword();
+    char[] passwordConfirmation = registrationController.getPasswordConfirmationField().getPassword();
 
     try {
       if (username.isEmpty()) {
@@ -122,7 +96,7 @@ public class RegisterButtonOnAction implements ActionListener {
         return false;
       }
 
-      if (!agreementCheckbox.isSelected()) {
+      if (!registrationController.getAgreementCheckbox().isSelected()) {
         CustomJOptionPane.showErrorMessageDialog("You must agree to the terms before registering.", "Validation Error");
         return false;
       }

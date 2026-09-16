@@ -23,8 +23,8 @@ public class SessionManager {
   private boolean isLoggedIn = false;
 
   // User folders and passwords
-  private HashMap<Integer, Folder> userFolders = new HashMap<>();
-  private HashMap<Integer, PasswordEntry> userPasswordEntries = new HashMap<>();
+  private HashMap<Integer, Folder> userFolders;
+  private HashMap<Integer, PasswordEntry> userPasswordEntries;
 
   private SessionManager() { }
 
@@ -33,8 +33,8 @@ public class SessionManager {
     isLoggedIn = true;
 
     folderDAO.createFolderIfNotExists(user.getUserId(), "None");
-    userFolders = folderDAO.getAllUserFolders(getCurrentUserId());
 
+    userFolders = folderDAO.getAllUserFolders(getCurrentUserId());
     userPasswordEntries = passwordEntryDAO.getAllUserPasswordEntries(getCurrentUserId());
   }
 

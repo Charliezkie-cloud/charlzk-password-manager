@@ -5,7 +5,7 @@ import org.charlzk.Models.Folder;
 import javax.swing.*;
 import java.awt.*;
 
-public class AddPasswordLayout extends JPanel {
+public class EditPasswordLayout extends JPanel {
   // Field column length
   private static final int fieldColumnLength = 25;
 
@@ -17,14 +17,14 @@ public class AddPasswordLayout extends JPanel {
   public static final JTextArea noteTextArea = new JTextArea(5, fieldColumnLength);
 
   // ComboBox
-  public static DefaultComboBoxModel<Folder> folderComboBoxModel = new DefaultComboBoxModel<>();
+  public static final DefaultComboBoxModel<Folder> folderComboBoxModel = new DefaultComboBoxModel<>();
   public static final JComboBox<Folder> folderComboBox = new JComboBox<>(folderComboBoxModel);
 
   // Buttons
   public static final JButton cancelButton = new JButton("Cancel");
   public static final JButton saveButton = new JButton("Save");
 
-  public AddPasswordLayout() {
+  public EditPasswordLayout() {
     setLayout(new BorderLayout());
     setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 

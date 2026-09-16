@@ -14,10 +14,10 @@ public class PasswordEntryDAO {
   private final FolderDAO folderDAO = new FolderDAO();
   private final UserDAO userDAO = new UserDAO();
 
-  public PasswordEntry createPasswordEntry(int userId, String title, String username, String password, String url) throws SQLException, IOException {
+  public PasswordEntry createPasswordEntry(int userId, String title, String username, String password, String url, String note) throws SQLException, IOException {
     String sql = """
-            INSERT INTO PasswordEntries(folder_id, user_id, title, username, password, url, created_at, updated_at)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO PasswordEntries(folder_id, user_id, title, username, password, url, note, created_at, updated_at)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
     Connection conn = DatabaseConnection.getConnection();
@@ -29,9 +29,10 @@ public class PasswordEntryDAO {
       statement.setString(4, username);
       statement.setString(5, password);
       statement.setString(6, url);
+      statement.setString(7, note);
 
-      statement.setLong(7, System.currentTimeMillis());
       statement.setLong(8, System.currentTimeMillis());
+      statement.setLong(9, System.currentTimeMillis());
 
       if (!(statement.executeUpdate() > 0)) return null;
 
@@ -44,10 +45,10 @@ public class PasswordEntryDAO {
     }
   }
 
-  public PasswordEntry createPasswordEntry(int userId, int folderId, String title, String username, String password, String url) throws SQLException, IOException {
+  public PasswordEntry createPasswordEntry(int userId, int folderId, String title, String username, String password, String url, String note) throws SQLException, IOException {
     String sql = """
-            INSERT INTO PasswordEntries(folder_id, user_id, title, username, password, url, created_at, updated_at)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO PasswordEntries(folder_id, user_id, title, username, password, url, note, created_at, updated_at)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
     Connection conn = DatabaseConnection.getConnection();
@@ -59,9 +60,10 @@ public class PasswordEntryDAO {
       statement.setString(4, username);
       statement.setString(5, password);
       statement.setString(6, url);
+      statement.setString(7, note);
 
-      statement.setLong(7, System.currentTimeMillis());
       statement.setLong(8, System.currentTimeMillis());
+      statement.setLong(9, System.currentTimeMillis());
 
       if (!(statement.executeUpdate() > 0)) return null;
 
@@ -106,26 +108,30 @@ public class PasswordEntryDAO {
     }
   }
 
-  public PasswordEntry updatePasswordEntry(int passwordEntryId, String title, String username, String password, String url) throws SQLException, IOException {
+  public PasswordEntry updatePasswordEntry(int passwordEntryId, int newFolderId, String title, String username, String password, String url, String note) throws SQLException, IOException {
     String sql = """
             UPDATE PasswordEntries
             SET
+              folder_id = ?,
               title = ?,
               username = ?,
               password = ?,
               url = ?,
+              note = ?,
               updated_at = ?
             WHERE entry_id = ?;
             """;
 
     Connection conn = DatabaseConnection.getConnection();
     try (PreparedStatement statement = conn.prepareStatement(sql)) {
-      statement.setString(1, title);
-      statement.setString(2, username);
-      statement.setString(3, password);
-      statement.setString(4, url);
-      statement.setLong(5, System.currentTimeMillis());
-      statement.setInt(6, passwordEntryId);
+      statement.setInt(1, newFolderId);
+      statement.setString(2, title);
+      statement.setString(3, username);
+      statement.setString(4, password);
+      statement.setString(5, url);
+      statement.setString(6, note);
+      statement.setLong(7, System.currentTimeMillis());
+      statement.setInt(8, passwordEntryId);
 
       if (!(statement.executeUpdate() > 0)) return null;
     }

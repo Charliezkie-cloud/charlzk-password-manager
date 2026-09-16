@@ -60,6 +60,7 @@ public class PasswordEntry {
   public String getUsername() { return username; }
   public String getPassword() { return password; }
   public String getUrl() { return url; }
+  public String getNote() { return note; }
 
   public long getCreatedAt() { return createdAt; }
   public long getUpdatedAt() { return updatedAt; }

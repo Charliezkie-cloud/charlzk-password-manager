@@ -1,8 +1,7 @@
 package org.charlzk.Controllers;
 
-import org.charlzk.Events.MainEvents.AddPasswordOnAction;
-import org.charlzk.Events.MainEvents.FoldersTableSelectionListener;
-import org.charlzk.Events.MainEvents.PasswordsTableSelectionListener;
+import org.charlzk.Components.CustomJOptionPane;
+import org.charlzk.Events.MainEvents.*;
 import org.charlzk.Models.Folder;
 import org.charlzk.Models.PasswordEntry;
 import org.charlzk.Services.TimeServices;
@@ -20,6 +19,11 @@ public class MainController {
   private final DefaultTableModel foldersTableModel;
   private final DefaultTableModel passwordsTableModel;
 
+  // Context menu and menu items
+  private final JPopupMenu passwordsTableContextMenu;
+  private final JMenuItem updatePasswordMenuItem;
+  private final JMenuItem deletePasswordMenuItem;
+
   // Tables
   private final JTable foldersTable;
   private final JTable passwordsTable;
@@ -36,9 +40,13 @@ public class MainController {
   private final JButton addFolderButton;
 
   // Events
-  private final AddPasswordOnAction addPasswordOnAction;
+  private final AddPasswordButtonOnAction addPasswordButtonOnAction;
   private final FoldersTableSelectionListener foldersTableSelectionListener;
   private final PasswordsTableSelectionListener passwordsTableSelectionListener;
+  private final PasswordsTableMouseAdapter passwordsTableMouseAdapter;
+  private final UpdatePasswordMenuItemOnAction updatePasswordMenuItemOnAction;
+  private final DeletePasswordMenuItemOnAction deletePasswordMenuItemOnAction;
+  private final MainWindowListener mainWindowListener;
 
   public MainController(
           // View
@@ -51,6 +59,11 @@ public class MainController {
           // Tables
           JTable foldersTable,
           JTable passwordsTable,
+
+          // Context menu and menu items
+          JPopupMenu passwordTableContextMenu,
+          JMenuItem updatePasswordMenuItem,
+          JMenuItem deletePasswordMenuItem,
 
           // Fields
           JTextField searchField,
@@ -71,6 +84,10 @@ public class MainController {
     this.foldersTable = foldersTable;
     this.passwordsTable = passwordsTable;
 
+    this.passwordsTableContextMenu = passwordTableContextMenu;
+    this.updatePasswordMenuItem = updatePasswordMenuItem;
+    this.deletePasswordMenuItem = deletePasswordMenuItem;
+
     this.searchField = searchField;
 
     this.searchOptionComboBox = searchOptionComboBox;
@@ -79,19 +96,31 @@ public class MainController {
     this.addPasswordButton = addPasswordButton;
     this.addFolderButton = addFolderButton;
 
-    this.addPasswordOnAction = new AddPasswordOnAction(this);
+    this.addPasswordButtonOnAction = new AddPasswordButtonOnAction(this);
     this.foldersTableSelectionListener = new FoldersTableSelectionListener(this);
     this.passwordsTableSelectionListener = new PasswordsTableSelectionListener(this);
+    this.passwordsTableMouseAdapter = new PasswordsTableMouseAdapter(this);
+    this.updatePasswordMenuItemOnAction = new UpdatePasswordMenuItemOnAction(this);
+    this.deletePasswordMenuItemOnAction = new DeletePasswordMenuItemOnAction(this);
+    this.mainWindowListener = new MainWindowListener(this);
 
-    addPasswordButton.addActionListener(addPasswordOnAction);
+    mainView.addWindowListener(mainWindowListener);
+    addPasswordButton.addActionListener(addPasswordButtonOnAction);
     foldersTable.getSelectionModel().addListSelectionListener(foldersTableSelectionListener);
     passwordsTable.getSelectionModel().addListSelectionListener(passwordsTableSelectionListener);
+    passwordsTable.addMouseListener(passwordsTableMouseAdapter);
+    updatePasswordMenuItem.addActionListener(updatePasswordMenuItemOnAction);
+    deletePasswordMenuItem.addActionListener(deletePasswordMenuItemOnAction);
   }
 
   public void close() {
-    addPasswordButton.removeActionListener(addPasswordOnAction);
+    mainView.removeWindowListener(mainWindowListener);
+    addPasswordButton.removeActionListener(addPasswordButtonOnAction);
     foldersTable.getSelectionModel().removeListSelectionListener(foldersTableSelectionListener);
     passwordsTable.getSelectionModel().removeListSelectionListener(passwordsTableSelectionListener);
+    passwordsTable.removeMouseListener(passwordsTableMouseAdapter);
+    updatePasswordMenuItem.removeActionListener(updatePasswordMenuItemOnAction);
+    deletePasswordMenuItem.removeActionListener(deletePasswordMenuItemOnAction);
   }
 
   // Getters
@@ -99,6 +128,7 @@ public class MainController {
   public JTable getFoldersTable() { return foldersTable; }
   public DefaultTableModel getPasswordsTableModel() { return passwordsTableModel; }
   public JTable getPasswordsTable() { return passwordsTable; }
+  public JPopupMenu getPasswordsTableContextMenu() { return passwordsTableContextMenu; }
 
   // Utils
   public void addFolderTableRow(Folder folder) {
@@ -120,7 +150,17 @@ public class MainController {
             TimeServices.formatTimeMillis(passwordEntry.getUpdatedAt())
     };
 
-    passwordsTableModel.addRow(item);
+    int selectedFolderRowIndex = foldersTable.getSelectedRow();
+    if (selectedFolderRowIndex == -1) return;
+
+    Object selectedFolderRowValue = foldersTableModel.getValueAt(selectedFolderRowIndex, 0);
+    try {
+      int selectedFolderId = Integer.parseInt(String.valueOf(selectedFolderRowValue));
+      if (passwordEntry.getFolderId() == selectedFolderId)
+        passwordsTableModel.addRow(item);
+    } catch (NumberFormatException ex) {
+      CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
+    }
   }
 
   public void refreshTables() {
@@ -132,7 +172,6 @@ public class MainController {
 
     for (Folder item : userFolders.values())
       addFolderTableRow(item);
-
     for (PasswordEntry item : userPasswordEntries.values())
       addPasswordTableRow(item);
   }
