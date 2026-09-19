@@ -6,10 +6,14 @@ import org.charlzk.Events.AddPasswordEvents.SaveButtonOnAction;
 import org.charlzk.Models.Folder;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class AddPasswordController {
   // Views
   private final JFrame addPasswordView;
+
+  // Controller
+  private final MainController mainController;
 
   // Fields
   private final JTextField titleField;
@@ -57,6 +61,7 @@ public class AddPasswordController {
           JButton saveButton
   ) {
     this.addPasswordView = addPasswordView;
+    this.mainController = mainController;
 
     this.titleField = titleField;
     this.usernameField = usernameField;
@@ -93,6 +98,22 @@ public class AddPasswordController {
   public JTextField getPasswordField() { return passwordField; }
   public JTextArea getNoteTextArea() { return noteTextArea; }
   public JComboBox<Folder> getFolderComboBox() { return folderComboBox; }
+  public MainController getMainController() { return mainController; }
+
+  public int getSelectedFolderId() {
+    JTable foldersTable = mainController.getFoldersTable();
+    DefaultTableModel foldersTableModel = mainController.getFoldersTableModel();
+    int selectedRow = foldersTable.getSelectedRow();
+    if (selectedRow == -1) return -1;
+
+    int modelRow = foldersTable.convertRowIndexToModel(selectedRow);
+
+    try {
+      return Integer.parseInt(String.valueOf(foldersTableModel.getValueAt(modelRow, 0)));
+    } catch (NumberFormatException ex) {
+      return -1;
+    }
+  }
 
   // Utils
   public void addFolderComboBoxItem(Folder folder) { folderComboBoxModel.addElement(folder); }

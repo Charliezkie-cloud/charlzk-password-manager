@@ -44,6 +44,16 @@ public class AddPasswordWindowListener extends WindowAdapter {
       HashMap<Integer, Folder> result = folderDAO.getAllUserFolders(user.getUserId());
       for (Folder item : result.values())
         addPasswordController.addFolderComboBoxItem(item);
+
+      int selectedFolderId = addPasswordController.getSelectedFolderId();
+      if (selectedFolderId != -1) {
+        for (Folder item : result.values()) {
+          if (item.getFolderId() == selectedFolderId) {
+            addPasswordController.getFolderComboBox().setSelectedItem(item);
+            break;
+          }
+        }
+      }
     } catch (SQLException | IOException ex) {
       CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
     }

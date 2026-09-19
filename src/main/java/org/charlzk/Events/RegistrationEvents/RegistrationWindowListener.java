@@ -1,9 +1,8 @@
 package org.charlzk.Events.RegistrationEvents;
 
 import org.charlzk.Controllers.RegistrationController;
-import org.charlzk.Views.LoginView;
+import org.charlzk.Views.NoAuthViews.LoginView;
 
-import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 

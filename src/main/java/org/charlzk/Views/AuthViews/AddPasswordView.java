@@ -1,9 +1,8 @@
-package org.charlzk.Views;
+package org.charlzk.Views.AuthViews;
 
 import org.charlzk.Components.Layouts.AddPasswordLayout;
 import org.charlzk.Controllers.AddPasswordController;
 import org.charlzk.Controllers.MainController;
-import org.charlzk.Events.AddPasswordEvents.AddPasswordWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,7 @@ public class AddPasswordView extends JFrame {
   public AddPasswordView(MainController mainController) {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-    setTitle("Charlzk Password Manager - Add Password");
+    setTitle("Charlzk Password Manager - New Password");
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setResizable(false);
 

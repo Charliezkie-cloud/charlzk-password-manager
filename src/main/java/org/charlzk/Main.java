@@ -3,7 +3,7 @@ package org.charlzk;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import org.charlzk.Components.CustomJOptionPane;
 import org.charlzk.Database.DatabaseInitializer;
-import org.charlzk.Views.LoginView;
+import org.charlzk.Views.NoAuthViews.LoginView;
 
 import javax.swing.*;
 import java.io.IOException;

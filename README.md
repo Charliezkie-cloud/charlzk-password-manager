@@ -1,102 +1,94 @@
-# Password Manager (Java Desktop Application)
+# CharlZK Password Manager
 
-A simple offline password manager built with Java. This application stores user credentials locally using SQLite and follows an MVC-based structure for clarity and maintainability.
+CharlZK Password Manager is a local-only, offline Windows desktop application for managing password entries. It is written in Java and uses a Swing interface with an MVC-oriented structure.
 
-The project focuses on building a solid foundation for a secure desktop password manager while keeping the system easy to extend.
-
----
-
-## Overview
-
-This application allows multiple users to manage their credentials on a single device. All data is stored locally, so no internet connection is required.
-
-Security is considered in the design, but the project is still in development and not yet ready for storing highly sensitive data.
-
----
+> **Development status:** This project is under active development and is not ready for highly sensitive data. Review the security notes below before using it with real credentials.
 
 ## Features
 
-* Multi-user support on a single device
-* Local database using SQLite
-* Passwords stored as hashes, not plain text
-* No password recovery by design
-* Session is cleared when the application is closed
-* Structured using MVC principles
+- Local user registration and sign-in
+- Folder-based organization of password entries
+- Create, update, delete, and search password entries
+- Local SQLite database created on first run
+- No cloud sync, network service, or password-recovery workflow
 
----
+## Technology
 
-## Tech Stack
+- Java 25
+- Java Swing with FlatLaf
+- Maven
+- SQLite via `sqlite-jdbc`
+- Argon2 for user account password hashing
 
-* Java
-* Swing (JFrame)
-* SQLite (sqlite-jdbc)
-* Maven
-* MVC architecture
+## Security and data storage
 
----
+- All application data is stored locally; the application is designed to operate without network activity.
+- User account passwords are stored as Argon2 hashes.
+- Password-entry fields are currently stored in the local SQLite database.
+- The database schema uses foreign keys and separates users, folders, and password entries. See [the database reference](references/DATABASE.md) for the current schema.
+- SQLCipher encryption at rest is a **planned** capability. It is described as the intended database design, but it is not implemented in the current database connection code. Do not assume the present database file is encrypted.
+- There is intentionally no master-password recovery mechanism.
 
-## Project Structure
+## Requirements
 
-```text id="k1qygn"
-src/
-├── Components/    # Reusable UI components
-├── Controllers/   # Application logic and flow control
-├── DAO/           # Database access operations
-├── Database/      # Database connection and initialization
-├── Events/        # Event handling and listeners
-├── Models/        # Data models
-├── Services/      # Business logic layer
-├── Views/         # UI screens and layouts
-└── Main.java      # Application entry point
+- Windows
+- JDK 25
+- Maven 3.9 or later
+
+## Build and run
+
+1. Clone the repository.
+
+   ```bash
+   git clone https://github.com/Charliezkie-cloud/charlzk-password-manager.git
+   cd charlzk-password-manager
+   ```
+
+2. Build the project.
+
+   ```bash
+   mvn clean package
+   ```
+
+3. Open the Maven project in an IDE configured with JDK 25 and run `org.charlzk.Main`.
+
+The application creates its local database on first run.
+
+## Project structure
+
+```text
+src/main/java/org/charlzk/
+├── Components/   # Reusable Swing components and layouts
+├── Controllers/  # Application flow and UI coordination
+├── DAO/          # SQLite data-access objects
+├── Database/     # Connection and schema initialization
+├── Events/       # Swing listeners and event handlers
+├── Models/       # Data models
+├── Services/     # Application, authentication, password, and time services
+├── Session/      # Current-session state
+├── Views/        # Authenticated and unauthenticated screens
+└── Main.java     # Application entry point
 ```
 
----
+## Database model
 
-## Setup
+The local database currently contains the following tables:
 
-1. Clone the repository
+- `Users` — local account details and password hashes
+- `Folders` — user-owned folders for organizing entries
+- `PasswordEntries` — credential details associated with a user and, optionally, a folder
 
-```bash id="z6m1a0"
-git clone https://github.com/your-username/password-manager.git
-cd password-manager
-```
-
-2. Build the project
-
-```bash id="ymi6fp"
-mvn clean install
-```
-
-3. Run the application
-
-```bash id="op7crn"
-mvn exec:java
-```
-
----
-
-## Database
-
-The application uses a local SQLite database file that is created on first run.
-
-Planned tables include:
-
-* Users
-* Credentials
-
----
+Deleting a folder leaves its entries in place as unfiled; deleting a user cascades to that user's folders and password entries. The schema reference is the source of truth: [references/DATABASE.md](references/DATABASE.md).
 
 ## Contributing
 
-Contributions are welcome. Fork the repository, create a branch, and open a pull request.
+Contributions are welcome. Please keep changes scoped, preserve the MVC boundaries, and follow the repository guidance in [AGENTS.md](AGENTS.md).
 
----
+## Legal
 
-## License
-
-This project is licensed under the MIT License.
-
----
+- [Privacy Policy](<PRIVACY POLICY.md>)
+- [Terms of Use](<TERMS OF USE.md>)
+- MIT License
 
 ## Author
 

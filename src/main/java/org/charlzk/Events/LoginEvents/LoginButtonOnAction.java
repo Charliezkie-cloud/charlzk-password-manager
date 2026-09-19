@@ -3,9 +3,8 @@ package org.charlzk.Events.LoginEvents;
 import org.charlzk.Components.CustomJOptionPane;
 import org.charlzk.Controllers.LoginController;
 import org.charlzk.Services.AuthServices;
-import org.charlzk.Views.MainView;
+import org.charlzk.Views.AuthViews.MainView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;

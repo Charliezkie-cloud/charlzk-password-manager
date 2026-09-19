@@ -1,4 +1,4 @@
-package org.charlzk.Views;
+package org.charlzk.Views.NoAuthViews;
 
 import javax.swing.*;
 import java.awt.*;

@@ -40,3 +40,9 @@ build/
 
 ## Database
 password_manager.db
+
+## Maven
+.mvn/
+
+## GitHub
+.github/

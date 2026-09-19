@@ -1,4 +1,4 @@
-package org.charlzk.Views;
+package org.charlzk.Views.NoAuthViews;
 
 import org.charlzk.Components.Layouts.RegistrationLayout;
 import org.charlzk.Controllers.RegistrationController;

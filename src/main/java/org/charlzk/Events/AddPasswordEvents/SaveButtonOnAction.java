@@ -66,7 +66,7 @@ public class SaveButtonOnAction implements ActionListener {
       SessionManager.getInstance()
               .getUserPasswordEntries()
               .put(passwordEntry.getEntryId(), passwordEntry);
-      mainController.refreshTables();
+      mainController.addPasswordTableRow(passwordEntry);
       addPasswordController.close();
       addPasswordView.dispose();
       CustomJOptionPane.showSuccessMessageDialog("Password Added!", "Success");

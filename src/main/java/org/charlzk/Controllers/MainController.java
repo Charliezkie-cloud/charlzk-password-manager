@@ -23,6 +23,9 @@ public class MainController {
   private final JPopupMenu passwordsTableContextMenu;
   private final JMenuItem updatePasswordMenuItem;
   private final JMenuItem deletePasswordMenuItem;
+  private final JPopupMenu foldersTableContextMenu;
+  private final JMenuItem updateFolderMenuItem;
+  private final JMenuItem deleteFolderMenuItem;
 
   // Tables
   private final JTable foldersTable;
@@ -33,6 +36,7 @@ public class MainController {
 
   // ComboBox
   private final JComboBox<String> searchOptionComboBox;
+  private final DefaultComboBoxModel<String> searchOptionComboBoxModel;
 
   // Buttons
   private final JButton searchButton;
@@ -40,13 +44,18 @@ public class MainController {
   private final JButton addFolderButton;
 
   // Events
+  private final MainWindowListener mainWindowListener;
   private final AddPasswordButtonOnAction addPasswordButtonOnAction;
   private final FoldersTableSelectionListener foldersTableSelectionListener;
+  private final FoldersTableMouseAdapter foldersTableMouseAdapter;
+  private final EditFolderMenuItemOnAction editFolderMenuItemOnAction;
+  private final DeleteFolderMenuItemOnAction deleteFolderMenuItemOnAction;
   private final PasswordsTableSelectionListener passwordsTableSelectionListener;
   private final PasswordsTableMouseAdapter passwordsTableMouseAdapter;
   private final UpdatePasswordMenuItemOnAction updatePasswordMenuItemOnAction;
   private final DeletePasswordMenuItemOnAction deletePasswordMenuItemOnAction;
-  private final MainWindowListener mainWindowListener;
+  private final AddFolderButtonOnAction addFolderButtonOnAction;
+  private final SearchButtonOnAction searchButtonOnAction;
 
   public MainController(
           // View
@@ -64,12 +73,16 @@ public class MainController {
           JPopupMenu passwordTableContextMenu,
           JMenuItem updatePasswordMenuItem,
           JMenuItem deletePasswordMenuItem,
+          JPopupMenu foldersTableContextMenu,
+          JMenuItem updateFolderMenuItem,
+          JMenuItem deleteFolderMenuItem,
 
           // Fields
           JTextField searchField,
 
           // ComboBox
           JComboBox<String> searchOptionComboBox,
+          DefaultComboBoxModel<String> searchOptionComboBoxModel,
 
           // Buttons
           JButton searchButton,
@@ -87,40 +100,62 @@ public class MainController {
     this.passwordsTableContextMenu = passwordTableContextMenu;
     this.updatePasswordMenuItem = updatePasswordMenuItem;
     this.deletePasswordMenuItem = deletePasswordMenuItem;
+    this.foldersTableContextMenu = foldersTableContextMenu;
+    this.updateFolderMenuItem = updateFolderMenuItem;
+    this.deleteFolderMenuItem = deleteFolderMenuItem;
 
     this.searchField = searchField;
 
     this.searchOptionComboBox = searchOptionComboBox;
+    this.searchOptionComboBoxModel = searchOptionComboBoxModel;
 
     this.searchButton = searchButton;
     this.addPasswordButton = addPasswordButton;
     this.addFolderButton = addFolderButton;
 
+    this.mainWindowListener = new MainWindowListener(this);
     this.addPasswordButtonOnAction = new AddPasswordButtonOnAction(this);
     this.foldersTableSelectionListener = new FoldersTableSelectionListener(this);
+    this.foldersTableMouseAdapter = new FoldersTableMouseAdapter(this);
+    this.editFolderMenuItemOnAction = new EditFolderMenuItemOnAction(this);
+    this.deleteFolderMenuItemOnAction = new DeleteFolderMenuItemOnAction(this);
     this.passwordsTableSelectionListener = new PasswordsTableSelectionListener(this);
     this.passwordsTableMouseAdapter = new PasswordsTableMouseAdapter(this);
     this.updatePasswordMenuItemOnAction = new UpdatePasswordMenuItemOnAction(this);
     this.deletePasswordMenuItemOnAction = new DeletePasswordMenuItemOnAction(this);
-    this.mainWindowListener = new MainWindowListener(this);
+    this.addFolderButtonOnAction = new AddFolderButtonOnAction(this);
+    this.searchButtonOnAction = new SearchButtonOnAction(this);
+
+    searchOptionComboBoxModel.addElement("Folder");
+    searchOptionComboBoxModel.addElement("Password");
 
     mainView.addWindowListener(mainWindowListener);
     addPasswordButton.addActionListener(addPasswordButtonOnAction);
     foldersTable.getSelectionModel().addListSelectionListener(foldersTableSelectionListener);
+    foldersTable.addMouseListener(foldersTableMouseAdapter);
+    updateFolderMenuItem.addActionListener(editFolderMenuItemOnAction);
+    deleteFolderMenuItem.addActionListener(deleteFolderMenuItemOnAction);
     passwordsTable.getSelectionModel().addListSelectionListener(passwordsTableSelectionListener);
     passwordsTable.addMouseListener(passwordsTableMouseAdapter);
     updatePasswordMenuItem.addActionListener(updatePasswordMenuItemOnAction);
     deletePasswordMenuItem.addActionListener(deletePasswordMenuItemOnAction);
+    addFolderButton.addActionListener(addFolderButtonOnAction);
+    searchButton.addActionListener(searchButtonOnAction);
   }
 
   public void close() {
     mainView.removeWindowListener(mainWindowListener);
     addPasswordButton.removeActionListener(addPasswordButtonOnAction);
     foldersTable.getSelectionModel().removeListSelectionListener(foldersTableSelectionListener);
+    foldersTable.removeMouseListener(foldersTableMouseAdapter);
+    updateFolderMenuItem.removeActionListener(editFolderMenuItemOnAction);
+    deleteFolderMenuItem.removeActionListener(deleteFolderMenuItemOnAction);
     passwordsTable.getSelectionModel().removeListSelectionListener(passwordsTableSelectionListener);
     passwordsTable.removeMouseListener(passwordsTableMouseAdapter);
     updatePasswordMenuItem.removeActionListener(updatePasswordMenuItemOnAction);
     deletePasswordMenuItem.removeActionListener(deletePasswordMenuItemOnAction);
+    addFolderButton.removeActionListener(addFolderButtonOnAction);
+    searchButton.removeActionListener(searchButtonOnAction);
   }
 
   // Getters
@@ -129,6 +164,10 @@ public class MainController {
   public DefaultTableModel getPasswordsTableModel() { return passwordsTableModel; }
   public JTable getPasswordsTable() { return passwordsTable; }
   public JPopupMenu getPasswordsTableContextMenu() { return passwordsTableContextMenu; }
+  public JPopupMenu getFoldersTableContextMenu() { return foldersTableContextMenu; }
+  public JTextField getSearchField() { return searchField; }
+  public JComboBox<String> getSearchOptionComboBox() { return searchOptionComboBox; }
+  public DefaultComboBoxModel<String> getSearchOptionComboBoxModel() { return searchOptionComboBoxModel; }
 
   // Utils
   public void addFolderTableRow(Folder folder) {

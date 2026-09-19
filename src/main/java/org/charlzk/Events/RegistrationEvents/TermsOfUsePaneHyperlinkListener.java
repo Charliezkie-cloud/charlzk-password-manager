@@ -1,7 +1,7 @@
 package org.charlzk.Events.RegistrationEvents;
 
-import org.charlzk.Views.PrivacyView;
-import org.charlzk.Views.TermsOfUseView;
+import org.charlzk.Views.NoAuthViews.PrivacyView;
+import org.charlzk.Views.NoAuthViews.TermsOfUseView;
 
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;

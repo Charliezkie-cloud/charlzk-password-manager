@@ -1,4 +1,4 @@
-package org.charlzk.Views;
+package org.charlzk.Views.AuthViews;
 
 import org.charlzk.Components.Layouts.MainTabLayout;
 import org.charlzk.Components.Tabs.FoldersTab;
@@ -49,10 +49,14 @@ public class MainView extends JFrame {
             MainTabLayout.passwordsTableContextMenu,
             MainTabLayout.updatePasswordMenuItem,
             MainTabLayout.deletePasswordMenuItem,
+            MainTabLayout.foldersTableContextMenu,
+            MainTabLayout.updateFolderMenuItem,
+            MainTabLayout.deleteFolderMenuItem,
 
             MainTabLayout.searchField,
 
             MainTabLayout.searchOptionComboBox,
+            MainTabLayout.searchOptionComboBoxModel,
 
             MainTabLayout.searchButton,
             MainTabLayout.addPasswordButton,

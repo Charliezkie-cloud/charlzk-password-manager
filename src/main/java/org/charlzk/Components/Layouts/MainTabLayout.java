@@ -28,13 +28,16 @@ public class MainTabLayout extends JPanel {
   public static final JPopupMenu passwordsTableContextMenu = new JPopupMenu();
   public static final JMenuItem updatePasswordMenuItem = new JMenuItem("Edit");
   public static final JMenuItem deletePasswordMenuItem = new JMenuItem("Delete");
+  public static final JPopupMenu foldersTableContextMenu = new JPopupMenu();
+  public static final JMenuItem updateFolderMenuItem = new JMenuItem("Edit");
+  public static final JMenuItem deleteFolderMenuItem = new JMenuItem("Delete");
 
   // Fields
   public static final JTextField searchField = new JTextField();
 
-  // ComboBox
-  private static final String[] searchOptions = {"Folder", "Password"};
-  public static final JComboBox<String> searchOptionComboBox = new JComboBox<>(searchOptions);
+  //
+  public static final DefaultComboBoxModel<String> searchOptionComboBoxModel = new DefaultComboBoxModel<>();
+  public static final JComboBox<String> searchOptionComboBox = new JComboBox<>(searchOptionComboBoxModel);
 
   // Buttons
   public static final JButton searchButton = new JButton("Search");
@@ -49,13 +52,17 @@ public class MainTabLayout extends JPanel {
     JPanel searchPanel = new JPanel(new BorderLayout(4, 4));
     JPanel searchButtonsPanel = new JPanel(new BorderLayout(2, 2));
 
-    searchButtonsPanel.add(searchButton, BorderLayout.WEST);
-    searchButtonsPanel.add(searchOptionComboBox, BorderLayout.EAST);
+    searchButtonsPanel.add(searchOptionComboBox, BorderLayout.WEST);
+    searchButtonsPanel.add(searchButton, BorderLayout.EAST);
 
     searchPanel.add(searchField, BorderLayout.CENTER);
     searchPanel.add(searchButtonsPanel, BorderLayout.EAST);
 
     // ========== FOLDERS TABLE ==========
+    foldersTableContextMenu.add(updateFolderMenuItem);
+    foldersTableContextMenu.addSeparator();
+    foldersTableContextMenu.add(deleteFolderMenuItem);
+
     JPanel foldersPanel = new JPanel();
     foldersPanel.setLayout(new BoxLayout(foldersPanel, BoxLayout.Y_AXIS));
 

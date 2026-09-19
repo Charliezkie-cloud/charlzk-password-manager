@@ -1,7 +1,7 @@
 package org.charlzk.Events.MainEvents;
 
 import org.charlzk.Controllers.MainController;
-import org.charlzk.Views.EditPasswordView;
+import org.charlzk.Views.AuthViews.EditPasswordView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

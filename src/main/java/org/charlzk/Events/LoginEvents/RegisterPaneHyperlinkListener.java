@@ -1,9 +1,8 @@
 package org.charlzk.Events.LoginEvents;
 
 import org.charlzk.Controllers.LoginController;
-import org.charlzk.Views.RegistrationView;
+import org.charlzk.Views.NoAuthViews.RegistrationView;
 
-import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 

@@ -1,10 +1,8 @@
-package org.charlzk.Views;
+package org.charlzk.Views.AuthViews;
 
-import org.charlzk.Components.Layouts.AddPasswordLayout;
 import org.charlzk.Components.Layouts.EditPasswordLayout;
 import org.charlzk.Controllers.EditPasswordController;
 import org.charlzk.Controllers.MainController;
-import org.charlzk.Events.EditPasswordEvents.EditPasswordWindowListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +13,7 @@ public class EditPasswordView extends JFrame {
   public EditPasswordView(MainController mainController) {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-    setTitle("Charlzk Password Manager");
+    setTitle("Charlzk Password Manager - Edit Password");
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     setResizable(false);
 
