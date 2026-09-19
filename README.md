@@ -1,6 +1,6 @@
-# CharlZK Password Manager
+# Charlzk Password Manager
 
-CharlZK Password Manager is a local-only, offline Windows desktop application for managing password entries. It is written in Java and uses a Swing interface with an MVC-oriented structure.
+Charlzk Password Manager is a local-only, offline Windows desktop application for managing password entries. It is written in Java and uses a Swing interface with an MVC-oriented structure.
 
 > **Development status:** This project is under active development and is not ready for highly sensitive data. Review the security notes below before using it with real credentials.
 
@@ -40,8 +40,8 @@ CharlZK Password Manager is a local-only, offline Windows desktop application fo
 1. Clone the repository.
 
    ```bash
-   git clone https://github.com/Charliezkie-cloud/charlzk-password-manager.git
-   cd charlzk-password-manager
+   git clone https://github.com/Charliezkie-cloud/Charlzk-password-manager.git
+   cd Charlzk-password-manager
    ```
 
 2. Build the project.
@@ -50,14 +50,14 @@ CharlZK Password Manager is a local-only, offline Windows desktop application fo
    mvn clean package
    ```
 
-3. Open the Maven project in an IDE configured with JDK 25 and run `org.charlzk.Main`.
+3. Open the Maven project in an IDE configured with JDK 25 and run `org.Charlzk.Main`.
 
 The application creates its local database on first run.
 
 ## Project structure
 
 ```text
-src/main/java/org/charlzk/
+src/main/java/org/Charlzk/
 ├── Components/   # Reusable Swing components and layouts
 ├── Controllers/  # Application flow and UI coordination
 ├── DAO/          # SQLite data-access objects
