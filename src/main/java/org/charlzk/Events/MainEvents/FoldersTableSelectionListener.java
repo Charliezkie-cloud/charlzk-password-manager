@@ -6,7 +6,6 @@ import org.charlzk.DAO.PasswordEntryDAO;
 import org.charlzk.Models.PasswordEntry;
 import org.charlzk.Services.TimeServices;
 
-import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.io.IOException;

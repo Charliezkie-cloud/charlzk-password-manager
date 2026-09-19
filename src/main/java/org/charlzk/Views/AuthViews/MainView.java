@@ -1,10 +1,12 @@
 package org.charlzk.Views.AuthViews;
 
+import org.charlzk.Components.Layouts.FoldersTabLayout;
 import org.charlzk.Components.Layouts.MainTabLayout;
 import org.charlzk.Components.Tabs.FoldersTab;
 import org.charlzk.Components.Tabs.MainTab;
 import org.charlzk.Components.Tabs.PasswordGeneratorTab;
 import org.charlzk.Components.Tabs.SettingsTab;
+import org.charlzk.Controllers.FoldersController;
 import org.charlzk.Controllers.MainController;
 
 import javax.swing.*;
@@ -37,7 +39,7 @@ public class MainView extends JFrame {
 
     // ========== END OF COMPONENTS ==========
 
-    new MainController(
+    MainController mainController = new MainController(
             this,
 
             MainTabLayout.foldersTableModel,
@@ -62,6 +64,24 @@ public class MainView extends JFrame {
             MainTabLayout.addPasswordButton,
             MainTabLayout.addFolderButton
     );
+
+    FoldersController foldersController = new FoldersController(
+            mainController,
+
+            FoldersTabLayout.foldersTableModel,
+            FoldersTabLayout.foldersTable,
+
+            FoldersTabLayout.foldersTableContextMenu,
+            FoldersTabLayout.updateFolderMenuItem,
+            FoldersTabLayout.deleteFolderMenuItem,
+
+            FoldersTabLayout.searchField,
+
+            FoldersTabLayout.searchButton,
+            FoldersTabLayout.addFolderButton
+    );
+
+    mainController.setFoldersController(foldersController);
 
     add(mainContent);
     pack();

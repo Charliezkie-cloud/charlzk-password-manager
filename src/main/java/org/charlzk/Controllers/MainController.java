@@ -15,6 +15,9 @@ public class MainController {
   // View
   private final JFrame mainView;
 
+  // Controllers
+  private FoldersController foldersController;
+
   // Table data model
   private final DefaultTableModel foldersTableModel;
   private final DefaultTableModel passwordsTableModel;
@@ -156,6 +159,9 @@ public class MainController {
     deletePasswordMenuItem.removeActionListener(deletePasswordMenuItemOnAction);
     addFolderButton.removeActionListener(addFolderButtonOnAction);
     searchButton.removeActionListener(searchButtonOnAction);
+    if (foldersController != null) {
+      foldersController.close();
+    }
   }
 
   // Getters
@@ -168,6 +174,10 @@ public class MainController {
   public JTextField getSearchField() { return searchField; }
   public JComboBox<String> getSearchOptionComboBox() { return searchOptionComboBox; }
   public DefaultComboBoxModel<String> getSearchOptionComboBoxModel() { return searchOptionComboBoxModel; }
+  public FoldersController getFoldersController() { return foldersController; }
+
+  // Setters
+  public void setFoldersController(FoldersController foldersController) { this.foldersController = foldersController; }
 
   // Utils
   public void addFolderTableRow(Folder folder) {
@@ -178,6 +188,9 @@ public class MainController {
     };
 
     foldersTableModel.addRow(item);
+    if (foldersController != null) {
+      foldersController.addFolderTableRow(folder);
+    }
   }
 
   public void addPasswordTableRow(PasswordEntry passwordEntry) {
@@ -205,6 +218,9 @@ public class MainController {
   public void refreshTables() {
     foldersTableModel.setRowCount(0);
     passwordsTableModel.setRowCount(0);
+    if (foldersController != null) {
+      foldersController.getFoldersTableModel().setRowCount(0);
+    }
 
     HashMap<Integer, Folder> userFolders = SessionManager.getInstance().getUserFolders();
     HashMap<Integer, PasswordEntry> userPasswordEntries = SessionManager.getInstance().getUserPasswordEntries();

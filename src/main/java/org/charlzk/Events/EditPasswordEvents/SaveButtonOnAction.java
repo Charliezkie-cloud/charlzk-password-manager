@@ -7,7 +7,6 @@ import org.charlzk.Models.Folder;
 import org.charlzk.Models.PasswordEntry;
 import org.charlzk.Session.SessionManager;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;

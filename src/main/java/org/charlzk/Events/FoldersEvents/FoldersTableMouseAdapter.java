@@ -1,16 +1,16 @@
-package org.charlzk.Events.MainEvents;
+package org.charlzk.Events.FoldersEvents;
 
-import org.charlzk.Controllers.MainController;
+import org.charlzk.Controllers.FoldersController;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class FoldersTableMouseAdapter extends MouseAdapter {
-  private final MainController mainController;
+  private final FoldersController foldersController;
 
-  public FoldersTableMouseAdapter(MainController mainController) {
-    this.mainController = mainController;
+  public FoldersTableMouseAdapter(FoldersController foldersController) {
+    this.foldersController = foldersController;
   }
 
   @Override
@@ -20,8 +20,8 @@ public class FoldersTableMouseAdapter extends MouseAdapter {
   }
 
   private void maybeShowPopup(MouseEvent e) {
-    JTable foldersTable = mainController.getFoldersTable();
-    JPopupMenu foldersTableContextMenu = mainController.getFoldersTableContextMenu();
+    JTable foldersTable = foldersController.getFoldersTable();
+    JPopupMenu foldersTableContextMenu = foldersController.getFoldersTableContextMenu();
 
     if (e.isPopupTrigger()) {
       int row = foldersTable.rowAtPoint(e.getPoint());

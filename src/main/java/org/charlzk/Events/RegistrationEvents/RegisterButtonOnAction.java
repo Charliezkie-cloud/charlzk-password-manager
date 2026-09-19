@@ -4,7 +4,6 @@ import org.charlzk.Components.CustomJOptionPane;
 import org.charlzk.Controllers.RegistrationController;
 import org.charlzk.Services.AuthServices;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;

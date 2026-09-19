@@ -43,6 +43,7 @@ public class SaveButtonOnAction implements ActionListener {
       sessionManager.getUserFolders().put(folder.getFolderId(), folder);
 
       editFolderController.getMainController().refreshTables();
+      editFolderController.getMainController().getFoldersController().refreshTable();
       editFolderController.close();
       editFolderController.getEditFolderView().dispose();
 

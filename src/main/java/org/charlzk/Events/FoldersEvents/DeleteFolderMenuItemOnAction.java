@@ -1,7 +1,7 @@
-package org.charlzk.Events.MainEvents;
+package org.charlzk.Events.FoldersEvents;
 
 import org.charlzk.Components.CustomJOptionPane;
-import org.charlzk.Controllers.MainController;
+import org.charlzk.Controllers.FoldersController;
 import org.charlzk.DAO.FolderDAO;
 import org.charlzk.Models.Folder;
 import org.charlzk.Session.SessionManager;
@@ -16,20 +16,20 @@ public class DeleteFolderMenuItemOnAction implements ActionListener {
   private final FolderDAO folderDAO = new FolderDAO();
 
   // Controller
-  private final MainController mainController;
+  private final FoldersController foldersController;
 
-  public DeleteFolderMenuItemOnAction(MainController mainController) {
-    this.mainController = mainController;
+  public DeleteFolderMenuItemOnAction(FoldersController foldersController) {
+    this.foldersController = foldersController;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    int selectedFolderRowIndex = mainController.getFoldersTable().getSelectedRow();
+    int selectedFolderRowIndex = foldersController.getFoldersTable().getSelectedRow();
     if (selectedFolderRowIndex == -1) return;
 
-    int modelRowIndex = mainController.getFoldersTable().convertRowIndexToModel(selectedFolderRowIndex);
-    Object selectedFolderIdValue = mainController.getFoldersTableModel().getValueAt(modelRowIndex, 0);
-    Object selectedFolderNameValue = mainController.getFoldersTableModel().getValueAt(modelRowIndex, 1);
+    int modelRowIndex = foldersController.getFoldersTable().convertRowIndexToModel(selectedFolderRowIndex);
+    Object selectedFolderIdValue = foldersController.getFoldersTableModel().getValueAt(modelRowIndex, 0);
+    Object selectedFolderNameValue = foldersController.getFoldersTableModel().getValueAt(modelRowIndex, 1);
 
     int parsedFolderId;
     try {
@@ -62,11 +62,12 @@ public class DeleteFolderMenuItemOnAction implements ActionListener {
           SessionManager.getInstance().getUserFolders().remove(parsedFolderId);
         }
 
-        mainController.getFoldersTableModel().removeRow(modelRowIndex);
-        mainController.getFoldersController().getFoldersTableModel().removeRow(modelRowIndex);
+        foldersController.getFoldersTableModel().removeRow(modelRowIndex);
+        foldersController.getMainController().getFoldersTableModel().removeRow(modelRowIndex);
       } catch (SQLException | IOException ex) {
         CustomJOptionPane.showErrorMessageDialog(ex.getMessage(), "Application Error");
       }
     }
+
   }
 }

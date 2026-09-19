@@ -3,6 +3,7 @@ package org.charlzk.Views.AuthViews;
 import org.charlzk.Components.Layouts.EditFolderLayout;
 import org.charlzk.Controllers.EditFolderController;
 import org.charlzk.Controllers.MainController;
+import org.charlzk.Models.Folder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 import static org.charlzk.Services.ApplicationServices.setGlobalFont;
 
 public class EditFolderView extends JFrame {
-  public EditFolderView(MainController mainController) {
+  public EditFolderView(MainController mainController, Folder selectedFolder) {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 
     setTitle("Charlzk Password Manager - New Folder");
@@ -29,6 +30,7 @@ public class EditFolderView extends JFrame {
             this,
 
             mainController,
+            selectedFolder,
 
             EditFolderLayout.folderNameField,
 

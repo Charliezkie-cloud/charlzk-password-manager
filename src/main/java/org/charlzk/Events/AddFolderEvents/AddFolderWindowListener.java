@@ -17,4 +17,10 @@ public class AddFolderWindowListener extends WindowAdapter {
     super.windowClosed(e);
     addFolderController.close();
   }
+
+  @Override
+  public void windowOpened(WindowEvent e) {
+    super.windowOpened(e);
+    addFolderController.clearFields();
+  }
 }

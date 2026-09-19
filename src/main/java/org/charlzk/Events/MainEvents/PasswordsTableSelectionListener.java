@@ -2,7 +2,6 @@ package org.charlzk.Events.MainEvents;
 
 import org.charlzk.Controllers.MainController;
 
-import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 

@@ -17,6 +17,7 @@ public class EditFolderController {
 
   // Controller
   private final MainController mainController;
+  private final FoldersController foldersController;
 
   // Fields
   private final JTextField folderNameField;
@@ -34,6 +35,7 @@ public class EditFolderController {
           EditFolderView editFolderView,
 
           MainController mainController,
+          Folder selectedFolder,
 
           JTextField folderNameField,
 
@@ -43,6 +45,8 @@ public class EditFolderController {
     this.editFolderView = editFolderView;
 
     this.mainController = mainController;
+    this.foldersController = null;
+    this.selectedFolder = selectedFolder;
 
     this.folderNameField = folderNameField;
 
@@ -72,9 +76,4 @@ public class EditFolderController {
 
   // Setters
   public void setSelectedFolder(Folder value) { selectedFolder = value; }
-
-  // Utils
-  public void clearFields() {
-    folderNameField.setText("");
-  }
 }

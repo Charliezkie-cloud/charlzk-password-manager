@@ -9,9 +9,6 @@ public class MainTab extends JPanel {
   public MainTab() {
     setLayout(new BorderLayout());
     setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
-
-
-
     add(new MainTabLayout(), BorderLayout.CENTER);
   }
 }

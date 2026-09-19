@@ -1,7 +1,7 @@
-package org.charlzk.Events.MainEvents;
+package org.charlzk.Events.FoldersEvents;
 
 import org.charlzk.Components.CustomJOptionPane;
-import org.charlzk.Controllers.MainController;
+import org.charlzk.Controllers.FoldersController;
 import org.charlzk.DAO.FolderDAO;
 import org.charlzk.Models.Folder;
 import org.charlzk.Session.SessionManager;
@@ -10,22 +10,22 @@ import org.charlzk.Views.AuthViews.EditFolderView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditFolderMenuItemOnAction implements ActionListener {
+public class UpdateFolderMenuItemOnAction implements ActionListener {
   private final FolderDAO folderDAO = new FolderDAO();
-  private final MainController mainController;
+  private final FoldersController foldersController;
 
-  public EditFolderMenuItemOnAction(MainController mainController) {
-    this.mainController = mainController;
+  public UpdateFolderMenuItemOnAction(FoldersController foldersController) {
+    this.foldersController = foldersController;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    int selectedFolderRowIndex = mainController.getFoldersTable().getSelectedRow();
+    int selectedFolderRowIndex = foldersController.getFoldersTable().getSelectedRow();
     if (selectedFolderRowIndex == -1) return;
 
-    int modelRowIndex = mainController.getFoldersTable().convertRowIndexToModel(selectedFolderRowIndex);
-    Object selectedFolderIdValue = mainController.getFoldersTableModel().getValueAt(modelRowIndex, 0);
-    Object selectedFolderNameValue = mainController.getFoldersTableModel().getValueAt(modelRowIndex, 1);
+    int modelRowIndex = foldersController.getFoldersTable().convertRowIndexToModel(selectedFolderRowIndex);
+    Object selectedFolderIdValue = foldersController.getFoldersTableModel().getValueAt(modelRowIndex, 0);
+    Object selectedFolderNameValue = foldersController.getFoldersTableModel().getValueAt(modelRowIndex, 1);
 
     int parsedFolderId;
     try {
@@ -42,6 +42,6 @@ public class EditFolderMenuItemOnAction implements ActionListener {
     }
 
     Folder selectedFolder = SessionManager.getInstance().getUserFolders().get(parsedFolderId);
-    new EditFolderView(mainController, selectedFolder).setVisible(true);
+    new EditFolderView(foldersController.getMainController(), selectedFolder).setVisible(true);
   }
 }
