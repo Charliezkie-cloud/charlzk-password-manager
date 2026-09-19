@@ -10,8 +10,8 @@ public class UserDAO {
   public boolean createUser(String username, String email, String passwordHash) throws SQLException, IOException {
     String sql = "INSERT INTO Users (username, email, password_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setString(1, username);
       statement.setString(2, email);
       statement.setString(3, passwordHash);
@@ -25,8 +25,8 @@ public class UserDAO {
   public User getUserById(int userId) throws SQLException, IOException {
     String sql = "SELECT * FROM Users WHERE user_id = ? LIMIT 1";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, userId);
       try (ResultSet rs = statement.executeQuery()) {
         if (!rs.next()) return null;
@@ -48,8 +48,8 @@ public class UserDAO {
   public User getUserByEmail(String email) throws SQLException, IOException {
     String sql = "SELECT * FROM Users WHERE email = ? LIMIT 1";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setString(1, email);
       try (ResultSet rs = statement.executeQuery()) {
         if (!rs.next()) return null;
@@ -71,8 +71,8 @@ public class UserDAO {
   public User updateUser(int userId, String email, String passwordHash) throws SQLException, IOException {
     String sql = "UPDATE Users SET email = ?, password_hash = ?, updated_at = ? WHERE user_id = ?"; // fixed: was "passwordHash"
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setString(1, email);
       statement.setString(2, passwordHash);
       statement.setLong(3, System.currentTimeMillis());
@@ -90,8 +90,8 @@ public class UserDAO {
 
     String sql = "DELETE FROM Users WHERE user_id = ?";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, userId);
 
       if (!(statement.executeUpdate() > 0)) return null;

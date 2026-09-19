@@ -15,8 +15,8 @@ public class FolderDAO {
   public void createFolderIfNotExists(int userId, String name) throws SQLException, IOException {
     String sql = "INSERT OR IGNORE INTO Folders (user_id, name, created_at) VALUES (?, ?, ?)";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, userId);
       statement.setString(2, name);
       statement.setLong(3, System.currentTimeMillis());
@@ -28,8 +28,8 @@ public class FolderDAO {
   public Folder createFolder(int userId, String name) throws SQLException, IOException {
     String sql = "INSERT INTO Folders (user_id, name, created_at) VALUES (?, ?, ?)";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
       statement.setInt(1, userId);
       statement.setString(2, name);
       statement.setLong(3, System.currentTimeMillis());
@@ -62,8 +62,8 @@ public class FolderDAO {
         LIMIT 1;
     """;
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, folderId);
 
       try (ResultSet rs = statement.executeQuery()) {
@@ -89,8 +89,8 @@ public class FolderDAO {
   public Folder updateFolder(int folderId, String name) throws SQLException, IOException {
     String sql = "UPDATE Folders SET name = ? WHERE folder_id = ?;";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setString(1, name);
       statement.setInt(2, folderId);
 
@@ -103,10 +103,10 @@ public class FolderDAO {
   public Folder deleteFolder(int folderId) throws SQLException, IOException {
     String sql = "DELETE FROM Folders WHERE folder_id = ?;";
 
-    Connection conn = DatabaseConnection.getConnection();
     Folder folder = getFolderById(folderId);
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, folderId);
       statement.executeUpdate();
     }
@@ -132,8 +132,8 @@ public class FolderDAO {
         WHERE f.user_id = ?;
     """;
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, userId);
 
       try (ResultSet rs = statement.executeQuery()) {

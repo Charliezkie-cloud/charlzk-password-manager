@@ -20,8 +20,8 @@ public class PasswordEntryDAO {
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
       statement.setInt(1, folderDAO.DEFAULT_FOLDER_ID);
       statement.setInt(2, userId);
 
@@ -51,8 +51,8 @@ public class PasswordEntryDAO {
             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
       statement.setInt(1, folderId);
       statement.setInt(2, userId);
 
@@ -79,8 +79,8 @@ public class PasswordEntryDAO {
   public PasswordEntry getPasswordEntryById(int passwordEntryId) throws SQLException, IOException {
     String sql = "SELECT * FROM PasswordEntries WHERE entry_id = ? LIMIT 1";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, passwordEntryId);
       ResultSet rs = statement.executeQuery();
 
@@ -122,8 +122,8 @@ public class PasswordEntryDAO {
             WHERE entry_id = ?;
             """;
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, newFolderId);
       statement.setString(2, title);
       statement.setString(3, username);
@@ -145,8 +145,8 @@ public class PasswordEntryDAO {
 
     String sql = "DELETE FROM PasswordEntries WHERE entry_id = ?";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, passwordEntryId);
       statement.executeUpdate();
     }
@@ -158,8 +158,8 @@ public class PasswordEntryDAO {
     HashMap<Integer, PasswordEntry> userPasswordEntries = new HashMap<>();
     String sql = "SELECT * FROM PasswordEntries WHERE user_id = ?";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, userId);
       ResultSet rs = statement.executeQuery();
 
@@ -191,8 +191,8 @@ public class PasswordEntryDAO {
     HashMap<Integer, PasswordEntry> folderPasswordEntries = new HashMap<>();
     String sql = "SELECT * FROM PasswordEntries WHERE folder_id = ?";
 
-    Connection conn = DatabaseConnection.getConnection();
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setInt(1, folderId);
       ResultSet result = statement.executeQuery();
 

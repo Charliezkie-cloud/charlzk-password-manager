@@ -7,10 +7,9 @@ import java.sql.Statement;
 
 public class DatabaseInitializer {
   public static void initialize() throws SQLException, IOException {
-    try (Connection conn = DatabaseConnection.getConnection()) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         Statement statement = conn.createStatement()) {
       if (isDatabaseInitialized()) return;
-
-      Statement statement = conn.createStatement();
 
       // USERS TABLE
       statement.execute("""
@@ -61,7 +60,10 @@ public class DatabaseInitializer {
 
   private static boolean isDatabaseInitialized() throws SQLException, IOException {
     String sql = "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'Users';";
-    Connection conn = DatabaseConnection.getConnection();
-    return conn.createStatement().executeQuery(sql).next();
+    try (Connection conn = DatabaseConnection.getConnection();
+         Statement statement = conn.createStatement();
+         var resultSet = statement.executeQuery(sql)) {
+      return resultSet.next();
+    }
   }
 }
