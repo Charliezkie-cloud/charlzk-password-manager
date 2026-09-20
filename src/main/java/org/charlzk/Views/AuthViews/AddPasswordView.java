@@ -6,10 +6,23 @@ import org.charlzk.Controllers.MainController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import static org.charlzk.Services.ApplicationServices.setGlobalFont;
 
 public class AddPasswordView extends JFrame {
+  public AddPasswordView(MainController mainController, String password) {
+    this(mainController);
+
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowOpened(WindowEvent e) {
+        SwingUtilities.invokeLater(() -> AddPasswordLayout.passwordField.setText(password));
+      }
+    });
+  }
+
   public AddPasswordView(MainController mainController) {
     setGlobalFont(new Font("Segoe UI", Font.PLAIN, 14));
 

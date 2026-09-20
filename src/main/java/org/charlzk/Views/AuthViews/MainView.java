@@ -2,12 +2,14 @@ package org.charlzk.Views.AuthViews;
 
 import org.charlzk.Components.Layouts.FoldersTabLayout;
 import org.charlzk.Components.Layouts.MainTabLayout;
+import org.charlzk.Components.Layouts.PasswordGeneratorLayout;
 import org.charlzk.Components.Tabs.FoldersTab;
 import org.charlzk.Components.Tabs.MainTab;
 import org.charlzk.Components.Tabs.PasswordGeneratorTab;
 import org.charlzk.Components.Tabs.SettingsTab;
 import org.charlzk.Controllers.FoldersController;
 import org.charlzk.Controllers.MainController;
+import org.charlzk.Controllers.PasswordGeneratorController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,6 +84,22 @@ public class MainView extends JFrame {
     );
 
     mainController.setFoldersController(foldersController);
+
+    PasswordGeneratorController passwordGeneratorController = new PasswordGeneratorController(
+            mainController,
+
+            PasswordGeneratorLayout.generatedPasswordField,
+
+            PasswordGeneratorLayout.passwordLengthSpinner,
+
+            PasswordGeneratorLayout.uppercaseCheckbox,
+            PasswordGeneratorLayout.lowercaseCheckbox,
+            PasswordGeneratorLayout.numbersCheckbox,
+            PasswordGeneratorLayout.symbolsCheckbox,
+
+            PasswordGeneratorLayout.generateButton,
+            PasswordGeneratorLayout.saveButton
+    );
 
     add(mainContent);
     pack();
