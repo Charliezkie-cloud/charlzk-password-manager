@@ -73,6 +73,11 @@ public class PasswordGeneratorController {
     saveButton.addActionListener(saveButtonOnAction);
   }
 
+  public void close() {
+    generateButton.removeActionListener(generateButtonOnAction);
+    saveButton.removeActionListener(saveButtonOnAction);
+  }
+
   public void generatePassword() {
     if (!validateForm()) return;
 

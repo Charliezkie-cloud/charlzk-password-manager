@@ -17,6 +17,7 @@ public class MainController {
 
   // Controllers
   private FoldersController foldersController;
+  private PasswordGeneratorController passwordGeneratorController;
 
   // Table data model
   private final DefaultTableModel foldersTableModel;
@@ -162,6 +163,9 @@ public class MainController {
     if (foldersController != null) {
       foldersController.close();
     }
+    if (passwordGeneratorController != null) {
+      passwordGeneratorController.close();
+    }
   }
 
   // Getters
@@ -178,6 +182,7 @@ public class MainController {
 
   // Setters
   public void setFoldersController(FoldersController foldersController) { this.foldersController = foldersController; }
+  public void setPasswordGeneratorController(PasswordGeneratorController passwordGeneratorController) { this.passwordGeneratorController = passwordGeneratorController; }
 
   // Utils
   public void addFolderTableRow(Folder folder) {

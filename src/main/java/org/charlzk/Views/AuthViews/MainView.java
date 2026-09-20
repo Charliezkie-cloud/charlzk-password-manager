@@ -101,6 +101,8 @@ public class MainView extends JFrame {
             PasswordGeneratorLayout.saveButton
     );
 
+    mainController.setPasswordGeneratorController(passwordGeneratorController);
+
     add(mainContent);
     pack();
     setLocationRelativeTo(null);
