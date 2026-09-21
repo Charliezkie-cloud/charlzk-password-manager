@@ -1,5 +1,7 @@
 package org.charlzk.Components.Tabs;
 
+import org.charlzk.Components.Layouts.SettingsTabLayout;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,10 +11,6 @@ public class SettingsTab extends JPanel {
     setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
     // ========== Center Panel ==========
-    JPanel centerPanel = new JPanel();
-
-    centerPanel.add(new JLabel("Settings tab here..."));
-
-    add(centerPanel, BorderLayout.CENTER);
+    add(new SettingsTabLayout(), BorderLayout.CENTER);
   }
 }

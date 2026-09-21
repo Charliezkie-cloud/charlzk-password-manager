@@ -18,6 +18,7 @@ public class MainController {
   // Controllers
   private FoldersController foldersController;
   private PasswordGeneratorController passwordGeneratorController;
+  private SettingsController settingsController;
 
   // Table data model
   private final DefaultTableModel foldersTableModel;
@@ -166,9 +167,13 @@ public class MainController {
     if (passwordGeneratorController != null) {
       passwordGeneratorController.close();
     }
+    if (settingsController != null) {
+      settingsController.close();
+    }
   }
 
   // Getters
+  public JFrame getMainView() { return mainView; }
   public DefaultTableModel getFoldersTableModel() { return foldersTableModel; }
   public JTable getFoldersTable() { return foldersTable; }
   public DefaultTableModel getPasswordsTableModel() { return passwordsTableModel; }
@@ -179,10 +184,12 @@ public class MainController {
   public JComboBox<String> getSearchOptionComboBox() { return searchOptionComboBox; }
   public DefaultComboBoxModel<String> getSearchOptionComboBoxModel() { return searchOptionComboBoxModel; }
   public FoldersController getFoldersController() { return foldersController; }
+  public SettingsController getSettingsTabController() { return settingsController; }
 
   // Setters
   public void setFoldersController(FoldersController foldersController) { this.foldersController = foldersController; }
   public void setPasswordGeneratorController(PasswordGeneratorController passwordGeneratorController) { this.passwordGeneratorController = passwordGeneratorController; }
+  public void setSettingsTabController(SettingsController settingsController) { this.settingsController = settingsController; }
 
   // Utils
   public void addFolderTableRow(Folder folder) {

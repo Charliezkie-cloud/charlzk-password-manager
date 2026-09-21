@@ -10,6 +10,8 @@ import org.charlzk.Components.Tabs.SettingsTab;
 import org.charlzk.Controllers.FoldersController;
 import org.charlzk.Controllers.MainController;
 import org.charlzk.Controllers.PasswordGeneratorController;
+import org.charlzk.Controllers.SettingsController;
+import org.charlzk.Components.Layouts.SettingsTabLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -102,6 +104,28 @@ public class MainView extends JFrame {
     );
 
     mainController.setPasswordGeneratorController(passwordGeneratorController);
+
+    SettingsController settingsController = new SettingsController(
+            mainController,
+
+            SettingsTabLayout.themeComboBox,
+            SettingsTabLayout.themeComboBoxModel,
+
+            SettingsTabLayout.currentUsernameField,
+            SettingsTabLayout.newUsernameField,
+            SettingsTabLayout.currentEmailField,
+            SettingsTabLayout.newEmailField,
+            SettingsTabLayout.newPasswordField,
+            SettingsTabLayout.newPasswordConfirmationField,
+
+            SettingsTabLayout.saveThemeButton,
+            SettingsTabLayout.saveUsernameButton,
+            SettingsTabLayout.saveEmailButton,
+            SettingsTabLayout.savePasswordButton,
+            SettingsTabLayout.deleteAccountButton
+    );
+
+    mainController.setSettingsTabController(settingsController);
 
     add(mainContent);
     pack();

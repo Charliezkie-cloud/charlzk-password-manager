@@ -28,5 +28,9 @@ public class MainWindowListener extends WindowAdapter {
     HashMap<Integer, Folder> userFolders = SessionManager.getInstance().getUserFolders();
     for (Folder item : userFolders.values())
       mainController.addFolderTableRow(item);
+
+    if (mainController.getSettingsTabController() != null) {
+      mainController.getSettingsTabController().populateFields();
+    }
   }
 }

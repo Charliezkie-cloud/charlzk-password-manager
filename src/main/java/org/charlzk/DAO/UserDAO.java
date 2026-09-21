@@ -40,7 +40,7 @@ public class UserDAO {
         long createdAt = rs.getLong("created_at");
         long updatedAt = rs.getLong("updated_at");
 
-        return new User(userIdCol, username, emailRow, passwordHash, createdAt, updatedAt);
+        return new User(userIdCol, emailRow, username, passwordHash, createdAt, updatedAt);
       }
     }
   }
@@ -63,20 +63,49 @@ public class UserDAO {
         long createdAt = rs.getLong("created_at");
         long updatedAt = rs.getLong("updated_at");
 
-        return new User(userId, username, emailCol, passwordHash, createdAt, updatedAt);
+        return new User(userId, emailCol, username, passwordHash, createdAt, updatedAt);
       }
     }
   }
 
-  public User updateUser(int userId, String email, String passwordHash) throws SQLException, IOException {
-    String sql = "UPDATE Users SET email = ?, password_hash = ?, updated_at = ? WHERE user_id = ?"; // fixed: was "passwordHash"
+  public User updateUserPassword(int userId, String passwordHash) throws SQLException, IOException {
+    String sql = "UPDATE Users SET password_hash = ?, updated_at = ? WHERE user_id = ?"; // fixed: was "passwordHash"
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
+      statement.setString(1, passwordHash);
+      statement.setLong(2, System.currentTimeMillis());
+      statement.setInt(3, userId);
+
+      if (!(statement.executeUpdate() > 0)) return null;
+    }
+
+    return getUserById(userId);
+  }
+
+  public User updateUserEmail(int userId, String email) throws SQLException, IOException {
+    String sql = "UPDATE Users SET email = ?, updated_at = ? WHERE user_id = ?"; // fixed: was "passwordHash"
 
     try (Connection conn = DatabaseConnection.getConnection();
          PreparedStatement statement = conn.prepareStatement(sql)) {
       statement.setString(1, email);
-      statement.setString(2, passwordHash);
-      statement.setLong(3, System.currentTimeMillis());
-      statement.setInt(4, userId);
+      statement.setLong(2, System.currentTimeMillis());
+      statement.setInt(3, userId);
+
+      if (!(statement.executeUpdate() > 0)) return null;
+    }
+
+    return getUserById(userId);
+  }
+
+  public User updateUserUsername(int userId, String username) throws SQLException, IOException {
+    String sql = "UPDATE Users SET username = ?, updated_at = ? WHERE user_id = ?"; // fixed: was "passwordHash"
+
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement statement = conn.prepareStatement(sql)) {
+      statement.setString(1, username);
+      statement.setLong(2, System.currentTimeMillis());
+      statement.setInt(3, userId);
 
       if (!(statement.executeUpdate() > 0)) return null;
     }
