@@ -1,3 +1,5 @@
+# [Releases](https://github.com/Charliezkie-cloud/charlzk-password-manager/releases)
+
 # Charlzk Password Manager
 
 Charlzk Password Manager is a local-only, offline Windows desktop application for managing password entries. It is written in Java and uses a Swing interface with an MVC-oriented structure.
